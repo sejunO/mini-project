@@ -1,19 +1,22 @@
 package mini.project;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class BookInfo {
 
-  ArrayList<Book> bookList = new ArrayList<>();
+  List<Book> bookList;
+  public BookInfo(List<Book> list) {
+    this.bookList = list;
+  }
 
   public void init() {
 
     Book book1 = new Book();
     book1.setNo(1);
     book1.setTitle("refactoring");
-    book1.setAuthor(" ");
-    book1.setPublisher(" ");
+    book1.setAuthor(" asdf");
+    book1.setPublisher("asdf ");
     book1.setAvailable(true);
     bookList.add(book1);
 
@@ -51,14 +54,31 @@ public class BookInfo {
 
     while (iterator.hasNext()) {
       Book book = iterator.next();
+
       for (int i = 0; i < bookList.size(); i++) {
-        System.out.printf("%d, %s \n",
+        System.out.printf("%d, %s, %s, %s \n",
             book.getNo(),
-            book.getTitle());
+            book.getTitle(),
+            book.getAuthor(),
+            book.getPublisher());
 
       }
     }
   }
+
+  StringBuilder books = new StringBuilder("현재 대여가능한 책은 ");
+
+  public StringBuilder findByInBook() {
+    for (int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.isAvailable() == true) {
+        books.append(book.getTitle() + " ");
+      }
+    }
+    return books;
+  }
+
+
 }
 
 

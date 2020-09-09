@@ -1,11 +1,13 @@
 package mini.project;
 
+import java.sql.Date;
 
 public class Book {
   private int no; // 번호
   private String title; // 제목
   private String author; // 저자
-  private String publisher; // 장르
+  private String publisher; // 출판사
+  private Date ReceivingDate; // 도서 입고일
   private boolean available; // 대여가능 여부
   public int getNo() {
     return no;
@@ -37,5 +39,13 @@ public class Book {
   public void setAvailable(boolean available) {
     this.available = available;
   }
+
+  public Date setReceivingDate() {
+    return ReceivingDate;
+  }
+  public void setReceivingDate(Date ReceivingDate) {
+    this.ReceivingDate = ReceivingDate;
+  }
+
 
 }

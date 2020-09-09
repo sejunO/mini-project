@@ -1,5 +1,8 @@
 package mini.project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
   public static void main(String[] args) {
     System.out.println("=========== 도서 관리 프로그램 ===========");
@@ -11,8 +14,10 @@ public class App {
         "        6. 종료");
     System.out.println("==========================================");
 
-    BookInfo init = new BookInfo();
+    List<Book> bookList = new ArrayList<>();
+    BookInfo init = new BookInfo(bookList);
     init.init();
+    init.list();
 
     BookHandler bookHandler = new BookHandler(init);
 
@@ -23,9 +28,9 @@ public class App {
         switch (command) {
           case "1": BookHandler.add(); break;
           case "2": BookHandler.list(); break;
-          case "5": BookHandler.delete(); break;
+          case "3": BookHandler.delete(); break;
           case "4": BookHandler.update(); break;
-          case "3": bookHandler.detail(); break;
+          //          case "5": BookHandler.detail(); break;
           case "6": 
             System.out.println("도서 관리 프로그램을 종료합니다.");
             break loop;
@@ -36,6 +41,7 @@ public class App {
       }
 
     Prompt.close();
+    //OK!
   }
 }
 
