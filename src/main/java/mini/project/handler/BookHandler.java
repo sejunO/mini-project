@@ -22,8 +22,8 @@ public class BookHandler {
 
   //도서 등록
   public void add() {
-    System.out.println("\n--------------\n[도서 등록]"
-        + "\n--------------\n");
+    System.out.println("\n--------------\n [도서 등록]"
+        + "\n--------------");
 
     Book book = new Book();
     book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
@@ -47,13 +47,14 @@ public class BookHandler {
         String command = Prompt.inputString("\n---------------------\n"
             + "[ 도서 목록 및 검색 ]"
             + "\n---------------------\n" +
-            " 1.전체 목록 2.대여 가능 목록 3.이전으로\n\n" +
+            " 1.전체 목록 2.대여 가능 목록 3.대여 도서 목록 4.이전으로\n" +
             "\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": list1(); break;
           case "2": availableList(); break;
-          case "3": 
+          case "3": unavailableList(); break;
+          case "4": 
             System.out.println("이전으로 갑니다.");
             break loop;
           default:
@@ -94,7 +95,7 @@ public class BookHandler {
         availableBookList.add(book);
       }
     }
-    System.out.println("\n----------------\n 대여 가능 목록\n----------------");
+    System.out.println("\n----------------\n[대여 가능 목록]\n----------------");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
@@ -120,7 +121,7 @@ public class BookHandler {
         unavailableBookList.add(book);
       }
     }
-    System.out.println("대여된 도서 목록");
+    System.out.println("[대여된 도서 목록]");
     Iterator<Book> iterator = unavailableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
