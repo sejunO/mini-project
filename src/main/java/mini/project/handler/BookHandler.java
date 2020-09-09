@@ -39,6 +39,25 @@ public class BookHandler {
   }
 
   public void list() {
+    loop:
+      while (true) {
+        String command = Prompt.inputString("\n[ 도서 목록 및 검색 ]\n" +
+            " 1.전체 목록 2.대여 가능 목록 3.이전으로\n"+ 
+            "번호를 선택해주세요 => ");
+        switch (command) {
+          case "1": list1(); break;
+          case "2": availableList(); break;
+          case "3": 
+            System.out.println("이전으로 갑니다.");
+            break loop;
+          default:
+            System.out.println("실행할 수 없는 명령입니다.");
+        }
+        System.out.println(); 
+      }
+  }
+
+  public void list1() {
     System.out.println("\n[도서 전체 목록]"); // 전체목록
 
     Iterator<Book> iterator = bookList.iterator();
@@ -71,7 +90,7 @@ public class BookHandler {
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.printf(book.getTitle() + ", ");
+      System.out.printf("[ "+ book.getTitle() +" ]" + " , ");
     }
     //    StringBuilder books = new StringBuilder();
     //    for (int i = 0; i < bookList.size(); i++) {
@@ -117,18 +136,38 @@ public class BookHandler {
   }
 
   public void rental() {
+    loop:
+      while (true) {
+        String command = Prompt.inputString("\n[ 도서 대여 및 반납 ]\n" +
+            " 1.도서 대여 2.도서 반납 3.이전으로\n"+ 
+            "번호를 선택해주세요 => ");
+        switch (command) {
+          case "1": rental1(); break;
+          case "2": System.out.println("반납입니다"); break;
+          case "3": 
+            System.out.println("이전으로 갑니다.");
+            break loop;
+          default:
+            System.out.println("실행할 수 없는 명령입니다.");
+        }
+        System.out.println(); 
+      }
+  }
+
+
+  public void rental1() {
     String title = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
     for(int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
-        System.out.printf(title + " 도서는 현재 대여 가능합니다.");
+        System.out.printf("[ "+title+" ]"+ " 도서는 현재 대여 가능합니다.");
         String response = Prompt.inputString(" 대여 하시겠습니까? (y/N) ");
         if (response.equalsIgnoreCase("y")) {
           borrowBook(book);
-          System.out.println(title + " 도서를 대여하였습니다.");
+          System.out.println("[ "+title+" ]"+" 도서를 대여하였습니다.");
         }
       } else {
-        System.out.printf(title + " 도서는 현재 대여 불가능합니다.");
+        System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
       }
     }
   }
@@ -140,8 +179,27 @@ public class BookHandler {
     }
   }
 
-
   public void delete() {
+    loop:
+      while (true) {
+        String command = Prompt.inputString("\n[ 도서 삭제 ]\n" +
+            " 1.전체 삭제 2.개별 삭제 3.이전으로\n"+ 
+            "번호를 선택해주세요 => ");
+        switch (command) {
+          case "1": System.out.println("전체 삭제합니다.");; break;
+          case "2": delete1(); break;
+          case "3": 
+            System.out.println("이전으로 갑니다.");
+            break loop;
+          default:
+            System.out.println("실행할 수 없는 명령입니다.");
+        }
+        System.out.println(); 
+      }
+  }
+
+
+  public void delete1() {
     System.out.println("\n[도서 삭제]");
     int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
     int index = indexOf(no);
