@@ -29,7 +29,7 @@ public class App {
           case "2": bookHandler.list(); break;
           case "3": bookHandler.delete(); break;
           case "4": bookHandler.update(); break;
-          //          case "5": BookHandler.detail(); break;
+          case "5": bookHandler.detail(); break;
           case "6": 
             System.out.println("도서 관리 프로그램을 종료합니다.");
             break loop;

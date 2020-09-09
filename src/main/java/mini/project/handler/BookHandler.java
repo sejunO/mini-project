@@ -50,7 +50,15 @@ public class BookHandler {
     System.out.println("수정한다.");
 
   }
-
+  private Book findByTitle(int no) {
+    for (int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.getNo() == no) {
+        return book;
+      }
+    }
+    return null;
+  }
   public void detail() {
 
     //    String name = Prompt.inputString("찾는 도서 제목을 입력해주세요: ");
