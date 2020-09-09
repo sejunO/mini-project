@@ -20,8 +20,9 @@ public class BookHandler {
 
     Book book = new Book();
     book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
-    book.setTitle(Prompt.inputString("제목을 입력해주세요 > "));
-    book.setAuthor(Prompt.inputString("저자를 입력해주세요 > "));
+    Book no = findByNo(no);
+    book.setTitle(Prompt.inputString("도서 제목을 입력해주세요 > "));
+    book.setAuthor(Prompt.inputString("도서 저자를 입력해주세요 > "));
     book.setPublisher(Prompt.inputString("출판사를 입력해주세요 > "));
     book.setReceivingDate(new Date(System.currentTimeMillis()));
     book.setViewCount(0);
@@ -39,12 +40,12 @@ public class BookHandler {
 
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.printf("도서 코드 : %d\n"
+      System.out.printf("-----------------------------\n"
+          + "도서 코드 : %d\n"
           + "도서 제목 : %s\n"
           + "도서 저자 : %s\n"
           + "도서 출판사 : %s\n"
-          + "도서 입고일 : %s\n"
-          + "-----------------------------\n",
+          + "도서 입고일 : %s\n",
           book.getNo(),
           book.getTitle(),
           book.getAuthor(),
@@ -64,11 +65,11 @@ public class BookHandler {
     }
 
     String title = Prompt.inputString(
-        String.format("도서 제목(%s)? ", book.getTitle()));
+        String.format("해당 코드의 도서 제목은 [ %s ] 입니다.\n변경할 도서 제목을 입력해주세요 > ", book.getTitle()));
     String author = Prompt.inputString(
-        String.format("도서 저자(%s)? ", book.getAuthor()));
+        String.format("해당 코드의 도서 저자는 [ %s ] 입니다.\n변경할 도서 저자를 입력해주세요 > ", book.getAuthor()));
     String publisher = Prompt.inputString(
-        String.format("도서 출판사(%s)? ", book.getPublisher()));
+        String.format("해당 코드의 도서 출판사는 [ %s ] 입니다.\n변경할 도서 출판사를 입력해주세요 > ", book.getPublisher()));
 
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");

@@ -8,22 +8,21 @@ import mini.project.util.Prompt;
 
 public class App {
   public static void main(String[] args) {
-    System.out.println("=========== 도서 관리 프로그램 ===========");
-    System.out.println("        1. 도서 등록 \n" + 
-        "        2. 도서 목록 및 검색\n" + 
-        "        3. 도서 삭제\n" + 
-        "        4. 도서 정보 변경\n" + 
-        "        5. 도서 대여 및 반납\n" + 
-        "        6. 종료");
-    System.out.println("==========================================");
 
     List<Book> bookList = new LinkedList<>();
     BookHandler bookHandler = new BookHandler(bookList);
 
-
     loop:
       while (true) {
-        String command = Prompt.inputString("번호를 선택해주세요 => ");
+        String command = Prompt.inputString("=========== 도서 관리 프로그램 ===========\n"+
+            "        1. 도서 등록 \n" + 
+            "        2. 도서 목록 및 검색\n" + 
+            "        3. 도서 삭제\n" + 
+            "        4. 도서 정보 변경\n" + 
+            "        5. 도서 대여 및 반납\n" + 
+            "        6. 종료\n"+
+            "==========================================\n"
+            + "번호를 선택해주세요 => ");
 
         switch (command) {
           case "1": bookHandler.add(); break;
