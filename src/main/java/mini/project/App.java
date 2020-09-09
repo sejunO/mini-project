@@ -1,16 +1,20 @@
 package mini.project;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import mini.project.domain.Book;
 import mini.project.handler.BookHandler;
-import mini.project.util.LinkedList;
-import mini.project.util.List;
 import mini.project.util.Prompt;
 
 public class App {
   public static void main(String[] args) {
 
+
     List<Book> bookList = new LinkedList<>();
-    BookHandler bookHandler = new BookHandler(bookList);
+    List<Book> availableBookList = new ArrayList<>();
+    List<Book> unavailableBookList = new ArrayList<>();
+    BookHandler bookHandler = new BookHandler(bookList, availableBookList, unavailableBookList);
 
     loop:
       while (true) {
@@ -30,7 +34,8 @@ public class App {
           case "3": bookHandler.delete(); break;
           case "4": bookHandler.update(); break;
           case "5": bookHandler.detail(); break;
-          case "6": 
+          case "6": bookHandler.availableList(); break; // 현재 대여가능 목록입니다.
+          case "7": 
             System.out.println("도서 관리 프로그램을 종료합니다.");
             break loop;
           default:
