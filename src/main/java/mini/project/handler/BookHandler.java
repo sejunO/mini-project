@@ -85,6 +85,21 @@ public class BookHandler {
     //  
   }
 
+  public void unavailableList() {
+    for (int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (!book.isAvailable()) {
+        unavailableBookList.add(book);
+      }
+    }
+    System.out.println("반납 대기 목록");
+    Iterator<Book> iterator = unavailableBookList.iterator();
+    while (iterator.hasNext()) {
+      Book book = iterator.next();
+      System.out.printf(book.getTitle() + ", ");
+    }
+  }
+
   public void update() {
     System.out.println("\n[도서 정보 변경]");
     int no = Prompt.inputInt("변경할 도서 코드를 입력해주세요 > ");
@@ -116,29 +131,39 @@ public class BookHandler {
 
   }
 
-  public void detail() {
+  public void rental() {
     String title = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
     for(int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
+      if (!book.getTitle().equalsIgnoreCase(title)) {
+        System.out.println("해당 도서를 찾을 수 없습니다.");
+      }
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
         System.out.printf(title + " 도서는 현재 대여 가능합니다.");
         String response = Prompt.inputString(" 대여 하시겠습니까? (y/N) ");
         if (response.equalsIgnoreCase("y")) {
           borrowBook(book);
           System.out.println(title + " 도서를 대여하였습니다.");
+          return;
+        } else {
+          System.out.println("대여를 취소합니다.");
         }
-      } else {
-        System.out.printf(title + " 도서는 현재 대여 불가능합니다.");
-      }
+      } 
     }
+    System.out.printf(title + " 도서는 현재 대여 불가능합니다.");
   }
 
   public void returnBook() {
     String title = Prompt.inputString("반납할 도서 제목을 입력해주세요: ");
     for(int i = 0; i < unavailableBookList.size(); i++) {
-
+      Book book = unavailableBookList.get(i);
+      if (title.equalsIgnoreCase(book.getTitle()) && !book.isAvailable() ) {
+        book.setAvailable(true);
+        System.out.println(title + " 도서가 반납되었습니다.");
+      }
     }
   }
+
 
 
   public void delete() {
@@ -184,6 +209,5 @@ public class BookHandler {
 
   public void borrowBook(Book book) {
     book.setAvailable(false);
-    unavailableBookList.add(book);
   }
 }
