@@ -159,7 +159,7 @@ public class BookHandler {
     Book book = findByNo(no);
 
     if (book == null) {
-      System.out.println("* 해당 코드의 도서가 없습니다. *");
+      System.out.println("\n* 해당 코드의 도서가 없습니다. *");
       Thread.sleep(700);
       return;
     }
@@ -223,7 +223,7 @@ public class BookHandler {
           // 대여자 검증
           String name = Prompt.inputString("\n 대여자를 입력해주세요 > ");
           if (memberHandler.findByName(name) == null) {
-            System.out.println("* 등록된 회원이 아닙니다. *");
+            System.out.println("\n* 등록된 회원이 아닙니다. *");
             Thread.sleep(700);
             return;
           }
@@ -241,7 +241,7 @@ public class BookHandler {
           return;
         }
         if (response.equalsIgnoreCase("n")) {
-          System.out.println("* 도서 대여를 종료합니다. *");
+          System.out.println("\n* 도서 대여를 종료합니다. *");
           Thread.sleep(700);
           return;
         }
@@ -262,7 +262,7 @@ public class BookHandler {
     String name = Prompt.inputString("반납하시는 분 이름을 입력해주세요 > ");
     Member member = memberHandler.findByName(name);
     if (member == null) {
-      System.out.println("등록된 회원이 아닙니다.");
+      System.out.println("\n * 등록된 회원이 아닙니다. *");
       return;
     }
 
@@ -276,13 +276,14 @@ public class BookHandler {
       Book book = unavailableBookList.get(i);
       if (title.equalsIgnoreCase(book.getTitle()) && !book.isAvailable() ) {
         book.setAvailable(true);
-        System.out.println("[ "+title+" ]"+" 도서가 반납되었습니다.");
-        System.out.println("\n반납일자는 " + new Date(System.currentTimeMillis()) + " 입니다.\n");
+        System.out.println("\n* [ "+title+" ]"+" 도서가 반납되었습니다. *");
+        Thread.sleep(300);
+        System.out.println("\n* 반납일자는 " + new Date(System.currentTimeMillis()) + " 입니다. *\n");
         Thread.sleep(700);
         return;
       }
     }
-    System.out.println("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여되지 않았습니다.");
+    System.out.println("\n* [ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여되지 않았습니다. *");
     Thread.sleep(700);
   }
 
