@@ -18,7 +18,7 @@ public class MemberHandler {
         String command = Prompt.inputString("\n---------------------\n"
             + "회원"
             + "\n---------------------\n" +
-            " 1.회원 등록 2.회원 정보 변경 3.회원 상세정보\n\n" +
+            " 1.회원 등록 2.회원 정보 변경 3.회원 상세정보 4.이전으로\n\n" +
             "\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
@@ -36,7 +36,7 @@ public class MemberHandler {
   }
 
   private void memberDetail() {
-    System.out.println("회원 정보 변경입니다 > ");
+    System.out.println("회원 상세정보입니다 > ");
     String findName = Prompt.inputString("이름를 입력해주세요 > ");
     Member member = findByName(findName);
 
@@ -45,8 +45,12 @@ public class MemberHandler {
       return;
     }
     System.out.printf("회원 상세 정보 : \n" 
-        + "이 름 : %s\n" + "tel : %s\n",
+        + "이 름 : %s\n" + "tel : %s\n" + "book : ",
         member.getName(), member.getTel());
+    for (int i = 0; i < member.book.size(); i++) {
+
+      System.out.printf(member.book.get(i));
+    }
 
   }
 
@@ -94,7 +98,7 @@ public class MemberHandler {
     System.out.println("[ "+ member.getName() +"님 ]" + " 회원가입 감사합니다.");
   }
 
-  private Member findByName(String name) {
+  public Member findByName(String name) {
     for (int i = 0; i < memberList.size(); i++) {
       Member member = memberList.get(i);
       if (member.getName().equalsIgnoreCase(name)) {

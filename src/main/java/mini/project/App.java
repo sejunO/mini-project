@@ -19,7 +19,8 @@ public class App {
     List<Book> bookList = new LinkedList<>();
     List<Book> availableBookList = new ArrayList<>();
     List<Book> unavailableBookList = new ArrayList<>();
-    BookHandler bookHandler = new BookHandler(bookList, availableBookList, unavailableBookList);
+    BookHandler bookHandler = new BookHandler(
+        memberHandler, bookList, availableBookList, unavailableBookList);
 
 
     loop:
