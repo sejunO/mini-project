@@ -3,6 +3,7 @@
  */
 package mini.project;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class App {
@@ -17,18 +18,23 @@ public class App {
 
 
     LinkedList list = new LinkedList();
+    ArrayList list2 = new ArrayList();
+    list.add(s1);
+    list2.add(s1);
+    list2.add(s1);
+    list2.add(s2);
+    list.add(s1);
+    list.add(s2);
     list.add(s1);
     list.add(s1);
     list.add(s1);
-    list.add(s2);
-    list.add(s2);
-    list.add(s2);
 
     System.out.println(list.get(0));
     System.out.println(list.get(1));
     System.out.println(list.get(2));
 
     System.out.println(list.size());
+    System.out.println("되나여?2222222");
 
   }
 }
