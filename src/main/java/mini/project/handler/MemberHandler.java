@@ -49,7 +49,7 @@ public class MemberHandler {
         member.getName(), member.getTel());
     for (int i = 0; i < member.book.size(); i++) {
 
-      System.out.printf(member.book.get(i));
+      System.out.printf(member.book.get(i) + ", ");
     }
 
   }

@@ -32,7 +32,25 @@ public class BookHandler {
         + "\n");
 
     Book book = new Book();
-    book.setNo(Prompt.inputInt(" 도서 코드를 입력해주세요 > "));
+    loop:  
+      while(true) {
+        int no = Prompt.inputInt(" 도서 코드를 입력해주세요 > ");
+        int count = 0;
+        boolean count2 = true;
+        while(count2) {
+          for (int i = 0; i < bookList.size(); i++) {
+            if(bookList.get(i).getNo() == no) {
+              count++;
+              System.out.println("도서 코드 중복입니다. 다시 입력하세요.");
+              count2 = false;
+            }
+          }
+          if (count == 0) {
+            book.setNo(no);
+            break loop;
+          }
+        }
+      }
     book.setTitle(Prompt.inputString(" 제목을 입력해주세요 > "));
     book.setAuthor(Prompt.inputString(" 저자를 입력해주세요 > "));
     book.setPublisher(Prompt.inputString(" 출판사를 입력해주세요 > "));
@@ -94,6 +112,8 @@ public class BookHandler {
     }
   }
   // 대여 가능 도서 목록
+  // 현재 함수를 부를 때 마다 추가됨.
+  // 수정 필요.
   public void availableList() {
     for (int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
@@ -206,7 +226,7 @@ public class BookHandler {
           System.out.println("\n대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다.\n");
           // 대여자 정보에 대여도서 추가
           Member member = memberHandler.findByName(name);
-          member.book.add(name);
+          member.book.add(title);
           // 도서 대여 가능여부 변경
           borrowBook(book);
           // 대여된 도서 목록에 저장
@@ -223,8 +243,24 @@ public class BookHandler {
 
   }
   // 도서 반납
+  // 현재 반납자가 아닌사람이 반납해도 반납이 허용됨.
+  // 도서는 반납되지만 회원 정보에서 빌린 도서로 표시 됨.
+
   public void returnBook() {
-    String title = Prompt.inputString("반납할 도서 제목을 입력해주세요: ");
+    String title = Prompt.inputString("반납할 도서 제목을 입력해주세요 > ");
+    String name = Prompt.inputString("반납하시는 분 이름을 입력해주세요 > ");
+    Member member = memberHandler.findByName(name);
+    if (member == null) {
+      System.out.println("등록된 회원이 아닙니다.");
+      return;
+    }
+
+    for (int i = 0; i < member.book.size(); i++) {
+      if (member.book.get(i).equalsIgnoreCase(name)) {
+        member.book.remove(i);
+      }
+    }
+
     for(int i = 0; i < unavailableBookList.size(); i++) {
       Book book = unavailableBookList.get(i);
       if (title.equalsIgnoreCase(book.getTitle()) && !book.isAvailable() ) {
@@ -235,7 +271,6 @@ public class BookHandler {
       }
     }
     System.out.println("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여되지 않았습니다.");
-
   }
 
   // 등록된 도서 삭제
