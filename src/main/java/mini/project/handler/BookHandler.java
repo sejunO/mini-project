@@ -19,6 +19,7 @@ public class BookHandler {
     System.out.println("[도서 등록]");
 
     Book book = new Book();
+
     book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
     book.setTitle(Prompt.inputString("도서 제목을 입력해주세요 > "));
     book.setAuthor(Prompt.inputString("도서 저자를 입력해주세요 > "));
