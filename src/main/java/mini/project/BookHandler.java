@@ -9,7 +9,7 @@ public class BookHandler {
     this.bookInfo = bookInfo;
   }
 
-  public void add() {
+  public static void add() {
     System.out.println("[도서 등록]");
 
     Book book = new Book();
@@ -23,7 +23,7 @@ public class BookHandler {
 
   }
 
-  public void list() {
+  public static void list() {
     System.out.println("[도서 목록]");
 
     Book[] books = BookList.toArray();
