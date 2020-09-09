@@ -8,17 +8,6 @@ public class BookHandler {
     this.bookInfo = bookInfo;
   }
 
-  public void borrowBook() {
-
-  }
-
-  public void checkBook() {
-    while (true) {
-      String name = Prompt.inputString("찾는 도서 제목을 입력해주세요: ");
-      for (int i = 0; bookInfo.findByTitle)
-    }
-  }
-
   public static void add() {
     System.out.println("추가한다.");
 
@@ -38,10 +27,25 @@ public class BookHandler {
 
   }
 
-  public static void detail() {
-    System.out.println("대여 및 반납.");
+  public void detail() {
 
+    String name = Prompt.inputString("찾는 도서 제목을 입력해주세요: ");
+
+    if (bookInfo.findByTitle(name) != null) {
+      System.out.println(name);
+      /* if (bookInfo.findByTitle(name).isAvailable() == true) {
+        System.out.println(name + "도서는 현재 대여 가능합니다.");
+      } else {
+        System.out.println(name + "도서는 현재 대여가 불가능합니다.");
+      }*/
+    } else {
+      System.out.println(name + "을 찾을 수 없습니다.");
+    }
   }
 
 
 }
+
+
+
+

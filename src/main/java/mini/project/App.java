@@ -10,6 +10,12 @@ public class App {
         "        5. 도서 대여 및 반납\r\n" + 
         "        6. 종료");
     System.out.println("==========================================");
+
+    BookInfo init = new BookInfo();
+    init.init();
+
+    BookHandler bookHandler = new BookHandler(init);
+
     loop:
       while (true) {
         String command = Prompt.inputString("번호를 선택해주세요 => ");
@@ -19,7 +25,7 @@ public class App {
           case "2": BookHandler.list(); break;
           case "5": BookHandler.delete(); break;
           case "4": BookHandler.update(); break;
-          case "3": BookHandler.detail(); break;
+          case "3": bookHandler.detail(); break;
           case "6": 
             System.out.println("도서 관리 프로그램을 종료합니다.");
             break loop;
