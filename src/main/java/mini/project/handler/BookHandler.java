@@ -1,7 +1,6 @@
 package mini.project.handler;
 
 import java.sql.Date;
-import java.util.Scanner;
 import mini.project.domain.Book;
 import mini.project.util.Iterator;
 import mini.project.util.List;
@@ -28,7 +27,7 @@ public class BookHandler {
     System.out.println("\n   도서를 등록합니다."
         + "\n");
     Book book = new Book();
-    Scanner sc = new Scanner(System.in);
+    /*Scanner sc = new Scanner(System.in);
     String keyboardscan = sc.nextLine();
     while (true) {
       int cnt=0;
@@ -45,7 +44,7 @@ public class BookHandler {
         book.setNo(temp);
         break;
       }
-    } // end while
+    } // end while*/
     book.setNo(Prompt.inputInt(" 도서 코드를 입력해주세요 > "));
     book.setTitle(Prompt.inputString(" 제목을 입력해주세요 > "));
     book.setAuthor(Prompt.inputString(" 저자를 입력해주세요 > "));
