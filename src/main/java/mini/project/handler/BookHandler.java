@@ -29,25 +29,6 @@ public class BookHandler {
     System.out.println("\n\n [도서 등록]");
     System.out.println("\n * 도서를 등록합니다.*\n");
     Book book = new Book();
-    /*Scanner sc = new Scanner(System.in);
-    String keyboardscan = sc.nextLine();
-    while (true) {
-      int cnt=0;
-      System.out.println("도서 코드를 입력해주세요 > ");
-      String temp = sc.nextLine();
-      for (int i = 0; i < bookList.size(); i++) {
-        if (temp.equals(bookList.get(i).getNo())) {
-          cnt++;
-          System.out.println("도서 번호 중복입니다. 다시 입력하세요.");
-          break;
-        } // end if
-      } // end for
-      if(cnt == 0) {
-        book.setNo(temp);
-        break;
-      }
-    } // end while*/
-    //book.setNo(Prompt.inputInt(" 도서 코드를 입력해주세요 > "));
     loop:  
       while(true) {
         int no = Prompt.inputInt(" 도서 코드를 입력해주세요 > ");
@@ -57,7 +38,7 @@ public class BookHandler {
           for (int i = 0; i < bookList.size(); i++) {
             if(bookList.get(i).getNo() == no) {
               count++;
-              System.out.println("\n* 도서 코드가 중복됩니다. 다시 입력하세요. *");
+              System.out.println("\n* 도서 코드가 중복됩니다. 다시 입력하세요. *\n");
               count2 = false;
             }
           }
@@ -145,6 +126,7 @@ public class BookHandler {
       System.out.printf("[ "+ book.getTitle() +" ]" + " , ");
       Thread.sleep(700);
     }
+    System.out.println(); 
   }
   //    StringBuilder books = new StringBuilder();
   //    for (int i = 0; i < bookList.size(); i++) {

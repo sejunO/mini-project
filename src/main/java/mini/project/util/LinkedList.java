@@ -25,12 +25,6 @@ public class LinkedList<E> extends AbstractList<E> {
   }
 
   @Override
-  public E clear(E e) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
   public boolean add(E e) {
     Node<E> node = new Node<>();
     node.value = e;
