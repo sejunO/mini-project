@@ -16,7 +16,6 @@ public class App {
     String s1 = new String("aaa");
     String s2 = new String("ddd");
 
-
     LinkedList list = new LinkedList();
     ArrayList list2 = new ArrayList();
     list.add(s1);
@@ -30,11 +29,10 @@ public class App {
     list.add(s1);
 
     System.out.println(list.get(0));
-    System.out.println(list.get(1));
-    System.out.println(list.get(2));
 
     System.out.println(list.size());
-    System.out.println("되나여?2222222");
+    System.out.println("되나여?222");
+    System.out.println("오호라오호라");
 
 
   }
