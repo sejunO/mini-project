@@ -33,7 +33,7 @@ public class App {
           case "2": bookHandler.list(); break;
           case "3": bookHandler.delete(); break;
           case "4": bookHandler.update(); break;
-          case "5": bookHandler.detail(); break;
+          case "5": bookHandler.rental(); break;
           case "6": bookHandler.availableList(); break; // 현재 대여가능 목록입니다.
           case "7": 
             System.out.println("도서 관리 프로그램을 종료합니다.");

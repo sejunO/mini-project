@@ -11,6 +11,7 @@ public class BookHandler {
   List<Book> bookList;
   List<Book> availableBookList;
   List<Book> unavailableBookList;
+
   public BookHandler(
       List<Book> bookList , List<Book> availableBookList, List<Book> unavailableBookList) {
     this.bookList = bookList;
@@ -18,7 +19,6 @@ public class BookHandler {
     this.unavailableBookList = unavailableBookList;
 
   }
-
 
   public void add() {
     System.out.println("\n[도서 등록]");
@@ -116,7 +116,7 @@ public class BookHandler {
 
   }
 
-  public void detail() {
+  public void rental() {
     String title = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
     for(int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
