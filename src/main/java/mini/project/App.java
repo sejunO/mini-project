@@ -31,7 +31,7 @@ public class App {
             "\t\t3. 도서 삭제\n\n" + 
             "\t\t4. 도서 정보 변경\n\n" + 
             "\t\t5. 도서 대여 및 반납\n\n" +        
-            "\t\t6. 종료\n\n\n"+
+            "\t\t6. 종료\n\n"+
             "번호를 선택해주세요 => ");
 
         switch (command) {
