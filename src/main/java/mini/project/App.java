@@ -14,12 +14,15 @@ public class App {
 
     String s1 = new String("aaa");
     String s2 = new String("ddd");
-    String s3 = new String("ddd");
+
 
     LinkedList list = new LinkedList();
     list.add(s1);
+    list.add(s1);
+    list.add(s1);
     list.add(s2);
-    list.add(s3);
+    list.add(s2);
+    list.add(s2);
 
     System.out.println(list.get(0));
     System.out.println(list.get(1));
