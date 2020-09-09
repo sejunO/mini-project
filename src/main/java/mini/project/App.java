@@ -19,15 +19,15 @@ public class App {
 
     loop:
       while (true) {
-        String command = Prompt.inputString("=========== 도서 관리 프로그램 ===========\n"+
-            "        1. 도서 등록 \n" + 
-            "        2. 도서 목록 및 검색\n" + 
-            "        3. 도서 삭제\n" + 
-            "        4. 도서 정보 변경\n" + 
-            "        5. 도서 대여 및 반납\n" +        
-            "        6. 종료\n"+
-            "==========================================\n"
-            + "번호를 입력해주세요 => ");
+        System.out.println();
+        String command = Prompt.inputString("\t\t 도서 관리 프로그램 \t \n\n"+
+            "\t\t1. 도서 등록  \n\n" + 
+            "\t\t2. 도서 목록 및 검색 \n\n" + 
+            "\t\t3. 도서 삭제\n\n" + 
+            "\t\t4. 도서 정보 변경\n\n" + 
+            "\t\t5. 도서 대여 및 반납\n\n" +        
+            "\t\t6. 종료\n\n"+
+            "번호를 선택해주세요 => ");
 
         switch (command) {
           case "1": bookHandler.add(); break;
