@@ -1,9 +1,9 @@
 package mini.project.handler;
 
 import java.sql.Date;
-import java.util.Iterator;
-import java.util.List;
 import mini.project.domain.Book;
+import mini.project.util.Iterator;
+import mini.project.util.List;
 import mini.project.util.Prompt;
 
 public class BookHandler {
@@ -86,7 +86,7 @@ public class BookHandler {
         availableBookList.add(book);
       }
     }
-    System.out.println("대여 가능 목록");
+    System.out.println("\n대여 가능 목록");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
@@ -143,7 +143,7 @@ public class BookHandler {
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": rental1(); break;
-          case "2": System.out.println("반납입니다"); break;
+          case "2": returnBook(); break;
           case "3": 
             System.out.println("이전으로 갑니다.");
             break loop;
