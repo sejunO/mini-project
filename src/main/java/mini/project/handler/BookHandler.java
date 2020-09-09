@@ -20,7 +20,6 @@ public class BookHandler {
 
     Book book = new Book();
     book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
-    Book no = findByNo(no);
     book.setTitle(Prompt.inputString("도서 제목을 입력해주세요 > "));
     book.setAuthor(Prompt.inputString("도서 저자를 입력해주세요 > "));
     book.setPublisher(Prompt.inputString("출판사를 입력해주세요 > "));
@@ -142,7 +141,6 @@ public class BookHandler {
     }
     return -1;
   }
-
 
 }
 
