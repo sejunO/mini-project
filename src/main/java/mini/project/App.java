@@ -23,6 +23,6 @@ public class App {
     }
     System.out.println("오호라... 점심 먹을 때가 되었네...헐...");
     System.out.println("푸시푸시");
-
+    //ok!
   }
 }
