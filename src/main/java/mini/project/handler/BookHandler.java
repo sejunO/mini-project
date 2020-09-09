@@ -83,68 +83,63 @@ public class BookHandler {
   }
 
 
+  public void delete() {
+    System.out.println("[도서 삭제]");
+    int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
+    int index = indexOf(no);
 
-
-}
-
-
-public void delete() {
-  System.out.println("[도서 삭제]");
-  int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
-  int index = indexOf(no);
-
-  if (index == -1) {
-    System.out.println("해당 코드의 도서가 없습니다.");
-    return;
-  }
-
-  String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
-  if (!response.equalsIgnoreCase("y")) {
-    System.out.println("게시글 삭제를 취소하였습니다.");
-    return;
-  }
-
-  bookList.remove(index);
-  System.out.println("도서를 삭제하였습니다.");
-
-}
-
-
-public void detail() {
-
-  String name = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
-  for(int i = 0; i < bookList.size(); i++) {
-    Book book = bookList.get(i);
-    if (book.getTitle() == name && book.isAvailable() == true) {
-      System.out.println("대여가능합니다.");
+    if (index == -1) {
+      System.out.println("해당 코드의 도서가 없습니다.");
+      return;
     }
+
+    String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
+    if (!response.equalsIgnoreCase("y")) {
+      System.out.println("게시글 삭제를 취소하였습니다.");
+      return;
+    }
+
+    bookList.remove(index);
+    System.out.println("도서를 삭제하였습니다.");
+
   }
-  /* if (bookInfo.findByTitle(name).isAvailable() == true) {
+
+
+  public void detail() {
+
+    String name = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
+    for(int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.getTitle() == name && book.isAvailable() == true) {
+        System.out.println("대여가능합니다.");
+      }
+    }
+    /* if (bookInfo.findByTitle(name).isAvailable() == true) {
             System.out.println(name + "도서는 현재 대여 가능합니다.");
           } else {
             System.out.println(name + "도서는 현재 대여가 불가능합니다.");
           }*/
-}
-
-private Book findByNo(int no) {
-  for (int i = 0; i < bookList.size(); i++) {
-    Book book = bookList.get(i);
-    if (book.getNo() == no) {
-      return book;
-    }
   }
-  return null;
-}
 
-private int indexOf(int no) {
-  for (int i = 0; i < bookList.size(); i++) {
-    Book book = bookList.get(i);
-    if (book.getNo() == no) {
-      return i;
+  private Book findByNo(int no) {
+    for (int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.getNo() == no) {
+        return book;
+      }
     }
+    return null;
   }
-  return -1;
-}
+
+  private int indexOf(int no) {
+    for (int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.getNo() == no) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
 
 }
