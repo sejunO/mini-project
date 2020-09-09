@@ -3,8 +3,6 @@
  */
 package mini.project;
 
-import java.util.LinkedList;
-
 public class App {
   public String getGreeting() {
     return "Hello world.2223333";
@@ -12,20 +10,7 @@ public class App {
 
   public static void main(String[] args) {
 
-    String s1 = new String("aaa");
-    String s2 = new String("ddd");
-    String s3 = new String("ddd");
-
-    LinkedList list = new LinkedList();
-    list.add(s1);
-    list.add(s2);
-    list.add(s3);
-
-    System.out.println(list.get(0));
-    System.out.println(list.get(1));
-    System.out.println(list.get(2));
-
-    System.out.println(list.size());
+    System.out.println("되나여?");
 
   }
 }
