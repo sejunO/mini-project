@@ -30,6 +30,7 @@ public class App {
       }
 
     Prompt.close();
+    //OK!
   }
 }
 
