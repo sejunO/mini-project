@@ -1,7 +1,9 @@
 package mini.project;
 
 import mini.project.domain.Book;
+import mini.project.domain.Member;
 import mini.project.handler.BookHandler;
+import mini.project.handler.MemberHandler;
 import mini.project.util.ArrayList;
 import mini.project.util.LinkedList;
 import mini.project.util.List;
@@ -10,12 +12,15 @@ import mini.project.util.Prompt;
 public class App {
   public static void main(String[] args) {
 
-
+    //Member
+    List<Member> memberList = new ArrayList<>();
+    MemberHandler memberHandler = new MemberHandler(memberList);
+    //Book
     List<Book> bookList = new LinkedList<>();
     List<Book> availableBookList = new ArrayList<>();
     List<Book> unavailableBookList = new ArrayList<>();
-
     BookHandler bookHandler = new BookHandler(bookList, availableBookList, unavailableBookList);
+
 
     loop:
       while (true) {
@@ -30,6 +35,7 @@ public class App {
             "번호를 선택해주세요 => ");
 
         switch (command) {
+          case "a": memberHandler.member();break;
           case "1": bookHandler.add(); break;
           case "2": bookHandler.list(); break;
           case "3": bookHandler.delete(); break;
