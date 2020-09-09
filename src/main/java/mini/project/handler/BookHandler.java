@@ -50,29 +50,30 @@ public class BookHandler {
     System.out.println("수정한다.");
 
   }
-  private Book findByTitle(int no) {
-    for (int i = 0; i < bookList.size(); i++) {
-      Book book = bookList.get(i);
-      if (book.getNo() == no) {
-        return book;
-      }
-    }
-    return null;
-  }
+
+  //  private Book findByTitle(String title) {
+  //    for (int i = 0; i < bookList.size(); i++) {
+  //      Book book = bookList.get(i);
+  //      if (book.getTitle() == title) {
+  //        return book;
+  //      }
+  //    }
+  //    return null;
+  //  }
   public void detail() {
 
-    //    String name = Prompt.inputString("찾는 도서 제목을 입력해주세요: ");
-    //
-    //    if (bookInfo.findByTitle(name) != null) {
-    //      System.out.println(name);
-    //      /* if (bookInfo.findByTitle(name).isAvailable() == true) {
-    //        System.out.println(name + "도서는 현재 대여 가능합니다.");
-    //      } else {
-    //        System.out.println(name + "도서는 현재 대여가 불가능합니다.");
-    //      }*/
-    //    } else {
-    //      System.out.println(name + "을 찾을 수 없습니다.");
-    //    }
+    String name = Prompt.inputString("찾는 도서 제목을 입력해주세요: ");
+
+    if (bookList.findByTitle(name) != null) {
+      System.out.println(name);
+      /* if (bookInfo.findByTitle(name).isAvailable() == true) {
+            System.out.println(name + "도서는 현재 대여 가능합니다.");
+          } else {
+            System.out.println(name + "도서는 현재 대여가 불가능합니다.");
+          }*/
+    } else {
+      System.out.println(name + "을 찾을 수 없습니다.");
+    }
 
   }
 
