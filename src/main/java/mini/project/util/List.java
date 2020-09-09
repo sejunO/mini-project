@@ -22,6 +22,9 @@ public interface List<E> {
   // => 컬렉션이 목록을 다루는 방식이 다르기 때문에 
   //    서브 클래스가 반드시 구현해야만 하는 추상 메서드이다.
   Iterator<E> iterator();
+
+  E clear(E e); // 전체 삭제부분. 제가 추가했어요.
+
 }
 
 

@@ -188,6 +188,7 @@ public class BookHandler {
   // 도서 대여
   public void rental1() {
     String title = Prompt.inputString("\n 대여할 도서 제목을 입력해주세요 > ");
+
     for(int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
@@ -196,7 +197,7 @@ public class BookHandler {
         if (response.equalsIgnoreCase("y")) {
           String name = Prompt.inputString("\n 대여자를 입력해주세요 > ");
           System.out.println("\n대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다.\n");
-          System.out.println("[ "+name+"]님 "+"[ "+title+" ]"+" 도서를 대여하였습니다 !");
+          System.out.println("[ "+name+" ]님은 "+"[ "+title+" ]"+" 도서를 대여하셨습니다 !");
           borrowBook(book);
         }
       } else {
@@ -225,8 +226,8 @@ public class BookHandler {
             " 1.전체 삭제 2.개별 삭제 3.이전으로\n\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
-          case "1": System.out.println("전체 삭제합니다.");; break;
-          case "2": delete1(); break;
+          case "1": delete1(); break;
+          case "2": delete2(); break;
           case "3": 
             System.out.println("이전으로 갑니다.");
             break loop;
@@ -237,8 +238,26 @@ public class BookHandler {
       }
   }
 
+  //도서 전체 삭제
+  private void delete1() {
+    Book booklist = new Book();
+
+    System.out.println("\n---------------------\n[도서 전체 삭제]"
+        + "\n---------------------\n");
+    System.out.println("y를 입력하시면 도서의 목록이 전체 삭제됩니다.\n");
+    String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
+    if (!response.equalsIgnoreCase("y")) {
+      System.out.println("도서 전체 삭제를 취소하였습니다.");
+      return;
+    }
+
+    bookList.clear(booklist); // 전체 삭제 메소드
+    System.out.println("도서를 전체 삭제하였습니다.");
+
+  }
+
   // 해당 코드 도서 삭제
-  public void delete1() {
+  public void delete2() {
     System.out.println("\n---------------------\n[도서 삭제]"
         + "\n---------------------\n");
     int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
@@ -251,12 +270,12 @@ public class BookHandler {
 
     String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
-      System.out.println("게시글 삭제를 취소하였습니다.");
+      System.out.println("해당 도서의 삭제를 취소하였습니다.");
       return;
     }
 
     bookList.remove(index);
-    System.out.println("도서를 삭제하였습니다.");
+    System.out.println("해당 도서를 삭제하였습니다.");
 
   }
 
