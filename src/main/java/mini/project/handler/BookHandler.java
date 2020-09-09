@@ -29,7 +29,7 @@ public class BookHandler {
   public void list() {
     System.out.println("[도서 목록]");
 
-    Book[] books = (Book[]) bookList.toArray();
+    Book[] books = bookList.toArray();
 
     for (Book book : books) {
       System.out.printf("%d, %s, %s, %s, %s\n",
@@ -62,25 +62,25 @@ public class BookHandler {
   //  }
   public void detail() {
 
-    String name = Prompt.inputString("찾는 도서 제목을 입력해주세요: ");
-
-    if (bookList.findByTitle(name) != null) {
-      System.out.println(name);
-      /* if (bookInfo.findByTitle(name).isAvailable() == true) {
+    String name = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
+    for(int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.getTitle() == name && book.isAvailable() == true) {
+        System.out.println("대여가능합니다.");
+      }
+    }
+    /* if (bookInfo.findByTitle(name).isAvailable() == true) {
             System.out.println(name + "도서는 현재 대여 가능합니다.");
           } else {
             System.out.println(name + "도서는 현재 대여가 불가능합니다.");
           }*/
-    } else {
-      System.out.println(name + "을 찾을 수 없습니다.");
-    }
-
   }
 
-
-
-
 }
+
+
+
+
 
 
 

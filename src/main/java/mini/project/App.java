@@ -20,6 +20,7 @@ public class App {
     List<Book> bookList = new LinkedList<>();
     BookHandler bookHandler = new BookHandler(bookList);
 
+
     loop:
       while (true) {
         String command = Prompt.inputString("번호를 선택해주세요 => ");
