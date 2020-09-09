@@ -22,7 +22,8 @@ public class BookHandler {
 
   //도서 등록
   public void add() {
-    System.out.println("\n[도서 등록]");
+    System.out.println("\n--------------\n[도서 등록]"
+        + "\n--------------\n");
 
     Book book = new Book();
     book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
@@ -35,7 +36,7 @@ public class BookHandler {
 
     bookList.add(book);
 
-    System.out.println("도서 등록을 완료하였습니다.");
+    System.out.println("/n도서 등록을 완료하였습니다.");
 
   }
 
