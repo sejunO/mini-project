@@ -1,19 +1,19 @@
 package mini.project;
 
-import java.util.LinkedList;
-import java.util.List;
 import mini.project.domain.Book;
 import mini.project.handler.BookHandler;
+import mini.project.util.LinkedList;
+import mini.project.util.List;
 import mini.project.util.Prompt;
 
 public class App {
   public static void main(String[] args) {
     System.out.println("=========== 도서 관리 프로그램 ===========");
-    System.out.println("        1. 도서 등록 \r\n" + 
-        "        2. 도서 목록 및 검색\r\n" + 
-        "        3. 도서 삭제\r\n" + 
-        "        4. 도서 정보 수정\r\n" + 
-        "        5. 도서 대여 및 반납\r\n" + 
+    System.out.println("        1. 도서 등록 \n" + 
+        "        2. 도서 목록 및 검색\n" + 
+        "        3. 도서 삭제\n" + 
+        "        4. 도서 정보 수정\n" + 
+        "        5. 도서 대여 및 반납\n" + 
         "        6. 종료");
     System.out.println("==========================================");
 
