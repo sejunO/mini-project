@@ -128,6 +128,16 @@ public void detail() {
           }*/
 }
 
+private Book findByNo(int no) {
+  for (int i = 0; i < bookList.size(); i++) {
+    Book book = bookList.get(i);
+    if (book.getNo() == no) {
+      return book;
+    }
+  }
+  return null;
+}
+
 private int indexOf(int no) {
   for (int i = 0; i < bookList.size(); i++) {
     Book book = bookList.get(i);
@@ -138,15 +148,6 @@ private int indexOf(int no) {
   return -1;
 }
 
-private Book findByNo(int no) {
-  for (int i = 0; i < bookList.size(); i++) {
-    Book book = bookList.get(i);
-    if (book.getNo() == no) {
-      return book;
-    }
-  }
-  return null;
-}
 
 }
 
