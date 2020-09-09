@@ -2,6 +2,7 @@ package mini.project.handler;
 
 import java.sql.Date;
 import mini.project.domain.Book;
+import mini.project.domain.Member;
 import mini.project.util.Iterator;
 import mini.project.util.List;
 import mini.project.util.Prompt;
@@ -11,9 +12,12 @@ public class BookHandler {
   List<Book> bookList; // 전체 도서 목록
   List<Book> availableBookList; // 대여 가능 도서 목록
   List<Book> unavailableBookList; // 이미 대여된 도서 목록
+  MemberHandler memberHandler;
 
   public BookHandler(
-      List<Book> bookList , List<Book> availableBookList, List<Book> unavailableBookList) {
+      MemberHandler memberHandler, List<Book> bookList ,
+      List<Book> availableBookList, List<Book> unavailableBookList) {
+    this.memberHandler = memberHandler;
     this.bookList = bookList;
     this.availableBookList =availableBookList;
     this.unavailableBookList = unavailableBookList;
@@ -21,11 +25,9 @@ public class BookHandler {
   }
 
   //도서 등록
-  public void add() {
-    System.out.println("\n--------------\n [도서 등록]"
-        + "\n--------------");
-    System.out.println("\n   도서를 등록합니다."
-        + "\n");
+  public void add() throws InterruptedException {
+    System.out.println("\n\n [도서 등록]");
+    System.out.println("\n * 도서를 등록합니다.*\n");
     Book book = new Book();
     /*Scanner sc = new Scanner(System.in);
     String keyboardscan = sc.nextLine();
@@ -55,38 +57,38 @@ public class BookHandler {
 
     bookList.add(book);
 
-    System.out.println("도서 등록을 완료하였습니다.");
+    System.out.println("\n* 도서 등록을 완료하였습니다. *");
+    Thread.sleep(700);
 
   }
 
   //도서 목록 선택
-  public void list() {
+  public void list() throws InterruptedException {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n---------------------\n"
-            + "[ 도서 목록 및 검색 ]"
-            + "\n---------------------\n" +
-            " 1.전체 목록 2.대여 가능 목록 3.대여 도서 목록 4.이전으로\n" +
+        String command = Prompt.inputString("\n\n[ 도서 목록 및 검색 ]\n" +
+            " 1.전체 목록\n 2.대여 가능 목록\n 3.대여 도서 목록\n 4.이전으로\n" +
             "\n"+ 
-            "번호를 선택해주세요 => ");
+            "번호를 선택하세요 => ");
         switch (command) {
-          case "1": list1(); break;
-          case "2": availableList(); break;
-          case "3": unavailableList(); break;
+          case "1": list1(); Thread.sleep(700); break;
+          case "2": availableList(); Thread.sleep(700); break;
+          case "3": unavailableList(); Thread.sleep(700); break;
           case "4": 
-            System.out.println("이전으로 갑니다.");
+            System.out.println("\n* 이전으로 갑니다. *");
+            Thread.sleep(700);
             break loop;
           default:
-            System.out.println("실행할 수 없는 명령입니다.");
+            System.out.println("\n* 실행할 수 없는 명령입니다. *");
+            Thread.sleep(700);
         }
         System.out.println(); 
       }
   }
 
   //전체목록
-  public void list1() {
-    System.out.println("\n---------------------\n[도서 전체 목록]"
-        + "\n---------------------\n"); 
+  public void list1() throws InterruptedException {
+    System.out.println("\n\n[도서 전체 목록]\n"); 
 
     Iterator<Book> iterator = bookList.iterator();
 
@@ -104,21 +106,23 @@ public class BookHandler {
           book.getPublisher(),
           book.getReceivingDate(),
           book.getViewCount());
+      Thread.sleep(700);
     }
   }
   // 대여 가능 도서 목록
-  public void availableList() {
+  public void availableList() throws InterruptedException {
     for (int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
       if (book.isAvailable()) {
         availableBookList.add(book);
       }
     }
-    System.out.println("\n----------------\n[대여 가능 목록]\n----------------");
+    System.out.println("\n\n[대여 가능 목록]\n");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
       System.out.printf("[ "+ book.getTitle() +" ]" + " , ");
+      Thread.sleep(700);
     }
     //    StringBuilder books = new StringBuilder();
     //    for (int i = 0; i < bookList.size(); i++) {
@@ -133,169 +137,159 @@ public class BookHandler {
   }
 
   // 이미 대여된 도서 목록
-  public void unavailableList() {
-    for (int i = 0; i < bookList.size(); i++) {
-      Book book = bookList.get(i);
-      if (!book.isAvailable()) {
-        unavailableBookList.add(book);
-      }
-    }
-    System.out.println("[대여된 도서 목록]");
+  public void unavailableList() throws InterruptedException {
+
+    System.out.println("\n\n[대여된 도서 목록]");
     Iterator<Book> iterator = unavailableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
       System.out.printf(book.getTitle() + ", ");
+      Thread.sleep(700);
     }
   }
 
   //도서 정보 변경
-  public void update() {
-    System.out.println("\\n---------------------\n[도서 정보 변경]"
-        + "\n---------------------\n");
+  public void update() throws InterruptedException {
+    System.out.println("\n\n[도서 정보 변경]\n");
     int no = Prompt.inputInt("변경할 도서 코드를 입력해주세요 > ");
     Book book = findByNo(no);
 
     if (book == null) {
-      System.out.println("해당 코드의 도서가 없습니다.");
+      System.out.println("* 해당 코드의 도서가 없습니다. *");
+      Thread.sleep(700);
       return;
     }
 
     String title = Prompt.inputString(
-        String.format("해당 코드의 도서 제목은 [ %s ] 입니다.\n변경할 도서 제목을 입력해주세요 > ", book.getTitle()));
+        String.format("* 해당 코드의 도서 제목은 [ %s ] 입니다. *\n변경할 도서 제목을 입력해주세요 > ", book.getTitle()));
     String author = Prompt.inputString(
-        String.format("해당 코드의 도서 저자는 [ %s ] 입니다.\n변경할 도서 저자를 입력해주세요 > ", book.getAuthor()));
+        String.format("* 해당 코드의 도서 저자는 [ %s ] 입니다. *\n변경할 도서 저자를 입력해주세요 > ", book.getAuthor()));
     String publisher = Prompt.inputString(
-        String.format("해당 코드의 도서 출판사는 [ %s ] 입니다.\n변경할 도서 출판사를 입력해주세요 > ", book.getPublisher()));
+        String.format("* 해당 코드의 도서 출판사는 [ %s ] 입니다. *\n변경할 도서 출판사를 입력해주세요 > ", book.getPublisher()));
 
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
-      System.out.println("도서 정보 변경을 취소하였습니다.");
+      System.out.println("* 도서 정보 변경을 취소하였습니다.*");
+      Thread.sleep(700);
       return;
     }
 
     book.setTitle(title);
     book.setAuthor(author);
     book.setPublisher(publisher);
-    System.out.println("도서 변경을 완료하였습니다.");
+    System.out.println("\n* 도서 변경을 완료하였습니다.*");
+    Thread.sleep(700);
 
   }
 
   // 도서 대여/반납 선택
-  public void rental() {
+  public void rental() throws InterruptedException {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n---------------------\n[ 도서 대여 및 반납 ]"
-            + "\n---------------------\n" +
-            " 1.도서 대여 \n 2.도서 반납 \n 3.이전으로\n\n"+ 
+        String command = Prompt.inputString("\n\n[ 도서 대여 및 반납 ]\n" +
+            " 1.도서 대여 \n 2.도서 반납 \n 3.이전으로\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
-          case "1": rental1(); break;
-          case "2": returnBook(); break;
+          case "1": rental1(); Thread.sleep(700); break;
+          case "2": returnBook(); Thread.sleep(700); break;
           case "3": 
-            System.out.println("이전으로 갑니다.");
+            System.out.println("\n* 이전으로 갑니다. *");
+            Thread.sleep(700);
             break loop;
           default:
-            System.out.println("실행할 수 없는 명령입니다.");
+            System.out.println("* 실행할 수 없는 명령입니다. *");
+            Thread.sleep(700);
         }
         System.out.println(); 
       }
   }
 
   // 도서 대여
-  public void rental1() {
+  public void rental1() throws InterruptedException {
     String title = Prompt.inputString("\n 대여할 도서 제목을 입력해주세요 > ");
 
     for(int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
+
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
-        System.out.printf("[ "+title+" ]"+ " 도서는 현재 대여 가능합니다.");
+        System.out.printf("[ "+title+" ]"+ "* 도서는 현재 대여 가능합니다. *");
         String response = Prompt.inputString(" 대여 하시겠습니까? (y/N) ");
         if (response.equalsIgnoreCase("y")) {
+          // 대여자 검증
           String name = Prompt.inputString("\n 대여자를 입력해주세요 > ");
-          System.out.println("\n대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다.\n");
-          System.out.println("[ "+name+" ]님은 "+"[ "+title+" ]"+" 도서를 대여하셨습니다 !");
+          if (memberHandler.findByName(name) == null) {
+            System.out.println("* 등록된 회원이 아닙니다. *");
+            Thread.sleep(700);
+            return;
+          }
+          // 대여완료
+          System.out.println("* [ "+name+" ]님은 "+"[ "+title+" ]"+" 도서를 대여하셨습니다. *");
+          System.out.println("\n* 대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다. *\n");
+          // 대여자 정보에 대여도서 추가
+          Member member = memberHandler.findByName(name);
+          member.book.add(name);
+          // 도서 대여 가능여부 변경
           borrowBook(book);
+          // 대여된 도서 목록에 저장
+          unavailableBookList.add(book);
+          Thread.sleep(700);
+          return;
         }
-      } else {
-        System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
-      } 
+        if (response.equalsIgnoreCase("n")) {
+          System.out.println("* 도서 대여를 종료합니다. *");
+          Thread.sleep(700);
+          return;
+        }
+      }
     }
+    System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
+    Thread.sleep(700);
+
   }
   // 도서 반납
-  public void returnBook() {
+  public void returnBook() throws InterruptedException {
     String title = Prompt.inputString("반납할 도서 제목을 입력해주세요: ");
     for(int i = 0; i < unavailableBookList.size(); i++) {
       Book book = unavailableBookList.get(i);
       if (title.equalsIgnoreCase(book.getTitle()) && !book.isAvailable() ) {
         book.setAvailable(true);
         System.out.println("[ "+title+" ]"+" 도서가 반납되었습니다.");
+        System.out.println("\n반납일자는 " + new Date(System.currentTimeMillis()) + " 입니다.\n");
+        Thread.sleep(700);
+        return;
       }
     }
+    System.out.println("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여되지 않았습니다.");
+    Thread.sleep(700);
+
   }
 
   // 등록된 도서 삭제
-  public void delete() {
-    loop:
-      while (true) {
-        String command = Prompt.inputString("\n---------------------\n[ 도서 삭제 ]"
-            + "\n---------------------\n" +
-            " 1.전체 삭제 2.개별 삭제 3.이전으로\n\n"+ 
-            "번호를 선택해주세요 => ");
-        switch (command) {
-          case "1": delete1(); break;
-          case "2": delete2(); break;
-          case "3": 
-            System.out.println("이전으로 갑니다.");
-            break loop;
-          default:
-            System.out.println("실행할 수 없는 명령입니다.");
-        }
-        System.out.println(); 
-      }
-  }
-
-  //도서 전체 삭제
-  private void delete1() {
-
-    System.out.println("\n---------------------\n[도서 전체 삭제]"
-        + "\n---------------------\n");
-    System.out.println("y를 입력하시면 도서의 목록이 전체 삭제됩니다.\n");
-    String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
-    if (!response.equalsIgnoreCase("y")) {
-      System.out.println("도서 전체 삭제를 취소하였습니다.");
-      return;
-    } else {
-      for (int i = bookList.size(); i > bookList.size(); i--) {
-        bookList.remove(i);
-      }
-    }
-    System.out.println("\n도서를 전체 삭제하였습니다.");
-  }
-
-  // 해당 코드 도서 삭제
-  public void delete2() {
-    System.out.println("\n---------------------\n[도서 삭제]"
-        + "\n---------------------\n");
-    int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
+  public void delete() throws InterruptedException {
+    System.out.println("\n\n [도서 삭제]");
+    System.out.println("\n * 도서를 삭제합니다.*\n");
+    int no = Prompt.inputInt("도서 코드를 입력해주세요 > ");
     int index = indexOf(no);
 
     if (index == -1) {
-      System.out.println("해당 코드의 도서가 없습니다.");
+      System.out.println("* 해당 코드의 도서가 없습니다. *");
+      Thread.sleep(700);
       return;
     }
 
     String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
-      System.out.println("해당 도서의 삭제를 취소하였습니다.");
+      System.out.println("* 해당 도서의 삭제를 취소하였습니다. *");
+      Thread.sleep(700);
       return;
     }
 
     bookList.remove(index);
-    System.out.println("해당 도서를 삭제하였습니다.");
+    System.out.println("* 해당 도서를 삭제하였습니다. *");
+    Thread.sleep(700);
 
   }
-
 
   private Book findByNo(int no) {
     for (int i = 0; i < bookList.size(); i++) {
