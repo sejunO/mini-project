@@ -1,6 +1,7 @@
 package mini.project.handler;
 
 import java.sql.Date;
+import com.eomcs.pms.domain.Board;
 import mini.project.domain.Book;
 import mini.project.util.Iterator;
 import mini.project.util.List;
@@ -84,6 +85,8 @@ public class BookHandler {
   }
 
 
+
+
 }
 
 
@@ -127,12 +130,22 @@ public void detail() {
 
 private int indexOf(int no) {
   for (int i = 0; i < bookList.size(); i++) {
-    Book board = bookList.get(i);
-    if (board.getNo() == no) {
+    Book book = bookList.get(i);
+    if (book.getNo() == no) {
       return i;
     }
   }
   return -1;
+}
+
+private Book findByNo(int no) {
+  for (int i = 0; i < bookList.size(); i++) {
+    Book book = bookList.get(i);
+    if (book.getNo() == no) {
+      return book;
+    }
+  }
+  return null;
 }
 
 }
