@@ -1,6 +1,7 @@
 package mini.project.handler;
 
 import java.sql.Date;
+import java.util.Scanner;
 import mini.project.domain.Book;
 import mini.project.util.Iterator;
 import mini.project.util.List;
@@ -26,8 +27,25 @@ public class BookHandler {
         + "\n--------------");
     System.out.println("\n   도서를 등록합니다."
         + "\n");
-
     Book book = new Book();
+    Scanner sc = new Scanner(System.in);
+    String keyboardscan = sc.nextLine();
+    while (true) {
+      int cnt=0;
+      System.out.println("도서 코드를 입력해주세요 > ");
+      String temp = sc.nextLine();
+      for (int i = 0; i < bookList.size(); i++) {
+        if (temp.equals(bookList.get(i).getNo())) {
+          cnt++;
+          System.out.println("도서 번호 중복입니다. 다시 입력하세요.");
+          break;
+        } // end if
+      } // end for
+      if(cnt == 0) {
+        book.setNo(temp);
+        break;
+      }
+    } // end while
     book.setNo(Prompt.inputInt(" 도서 코드를 입력해주세요 > "));
     book.setTitle(Prompt.inputString(" 제목을 입력해주세요 > "));
     book.setAuthor(Prompt.inputString(" 저자를 입력해주세요 > "));
@@ -240,7 +258,6 @@ public class BookHandler {
 
   //도서 전체 삭제
   private void delete1() {
-    Book booklist = new Book();
 
     System.out.println("\n---------------------\n[도서 전체 삭제]"
         + "\n---------------------\n");
@@ -249,11 +266,12 @@ public class BookHandler {
     if (!response.equalsIgnoreCase("y")) {
       System.out.println("도서 전체 삭제를 취소하였습니다.");
       return;
+    } else {
+      for (int i = bookList.size(); i > bookList.size(); i--) {
+        bookList.remove(i);
+      }
     }
-
-    bookList.clear(booklist); // 전체 삭제 메소드
-    System.out.println("도서를 전체 삭제하였습니다.");
-
+    System.out.println("\n도서를 전체 삭제하였습니다.");
   }
 
   // 해당 코드 도서 삭제
