@@ -21,7 +21,7 @@ public class BookHandler {
 
 
   public void add() {
-    System.out.println("[도서 등록]");
+    System.out.println("\n[도서 등록]");
 
     Book book = new Book();
     book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
@@ -39,7 +39,7 @@ public class BookHandler {
   }
 
   public void list() {
-    System.out.println("[도서 전체 목록]"); // 전체목록
+    System.out.println("\n[도서 전체 목록]"); // 전체목록
 
     Iterator<Book> iterator = bookList.iterator();
 
@@ -86,7 +86,7 @@ public class BookHandler {
   }
 
   public void update() {
-    System.out.println("[도서 정보 변경]");
+    System.out.println("\n[도서 정보 변경]");
     int no = Prompt.inputInt("변경할 도서 코드를 입력해주세요 > ");
     Book book = findByNo(no);
 
@@ -142,7 +142,7 @@ public class BookHandler {
 
 
   public void delete() {
-    System.out.println("[도서 삭제]");
+    System.out.println("\n[도서 삭제]");
     int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
     int index = indexOf(no);
 
