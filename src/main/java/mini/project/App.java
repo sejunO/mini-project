@@ -12,6 +12,7 @@ public class App {
     System.out.println("ㅁ");
     System.out.println("강사....");
     System.out.println("저장합니다.!");
+    System.out.println("푸시푸시");
 
   }
 }
