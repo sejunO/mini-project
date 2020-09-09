@@ -25,10 +25,10 @@ public class BookHandler {
     System.out.println("\n => 도서를 등록합니다.\n");
 
     Book book = new Book();
-    book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
-    book.setTitle(Prompt.inputString("제목을 입력해주세요 > "));
-    book.setAuthor(Prompt.inputString("저자를 입력해주세요 > "));
-    book.setPublisher(Prompt.inputString("출판사를 입력해주세요 > "));
+    book.setNo(Prompt.inputInt(" 도서 코드를 입력해주세요 > "));
+    book.setTitle(Prompt.inputString(" 제목을 입력해주세요 > "));
+    book.setAuthor(Prompt.inputString(" 저자를 입력해주세요 > "));
+    book.setPublisher(Prompt.inputString(" 출판사를 입력해주세요 > "));
     book.setAvailable(true);
     book.setReceivingDate(new Date(System.currentTimeMillis()));
     book.setViewCount(0);
@@ -43,9 +43,9 @@ public class BookHandler {
   public void list() {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n[ 도서 목록 및 검색 ]\n" +
-            " 1.전체 목록 2.대여 가능 목록 3.이전으로\n"+ 
-            "번호를 선택해주세요 => ");
+        String command = Prompt.inputString("\n => 도서 목록 및 검색입니다. \n\n" +
+            " \t1.전체 목록  \n\n \t2.대여 가능 목록\n\n \t3.이전으로\n\n"+ 
+            " 번호를 선택해주세요 => ");
         switch (command) {
           case "1": list1(); break;
           case "2": availableList(); break;
