@@ -43,8 +43,11 @@ public class BookHandler {
   public void list() {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n[ 도서 목록 및 검색 ]\n" +
-            " 1.전체 목록 2.대여 가능 목록 3.이전으로\n"+ 
+        String command = Prompt.inputString("\n---------------------\n"
+            + "[ 도서 목록 및 검색 ]"
+            + "\n---------------------\n" +
+            " 1.전체 목록 2.대여 가능 목록 3.이전으로\n\n" +
+            "\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": list1(); break;
@@ -61,7 +64,8 @@ public class BookHandler {
 
   //전체목록
   public void list1() {
-    System.out.println("\n[도서 전체 목록]"); 
+    System.out.println("\n---------------------\n[도서 전체 목록]"
+        + "\n---------------------\n"); 
 
     Iterator<Book> iterator = bookList.iterator();
 
@@ -89,7 +93,7 @@ public class BookHandler {
         availableBookList.add(book);
       }
     }
-    System.out.println("\n대여 가능 목록");
+    System.out.println("\n----------------\n 대여 가능 목록\n----------------");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
@@ -125,7 +129,8 @@ public class BookHandler {
 
   //도서 정보 변경
   public void update() {
-    System.out.println("\n[도서 정보 변경]");
+    System.out.println("\\n---------------------\n[도서 정보 변경]"
+        + "\n---------------------\n");
     int no = Prompt.inputInt("변경할 도서 코드를 입력해주세요 > ");
     Book book = findByNo(no);
 
@@ -159,8 +164,9 @@ public class BookHandler {
   public void rental() {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n[ 도서 대여 및 반납 ]\n" +
-            " 1.도서 대여 2.도서 반납 3.이전으로\n"+ 
+        String command = Prompt.inputString("\n---------------------\n[ 도서 대여 및 반납 ]"
+            + "\n---------------------\n" +
+            " 1.도서 대여 2.도서 반납 3.이전으로\n\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": rental1(); break;
@@ -208,8 +214,9 @@ public class BookHandler {
   public void delete() {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n[ 도서 삭제 ]\n" +
-            " 1.전체 삭제 2.개별 삭제 3.이전으로\n"+ 
+        String command = Prompt.inputString("\n---------------------\n[ 도서 삭제 ]"
+            + "\n---------------------\n" +
+            " 1.전체 삭제 2.개별 삭제 3.이전으로\n\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": System.out.println("전체 삭제합니다.");; break;
@@ -226,7 +233,8 @@ public class BookHandler {
 
   // 해당 코드 도서 삭제
   public void delete1() {
-    System.out.println("\n[도서 삭제]");
+    System.out.println("\n---------------------\n[도서 삭제]"
+        + "\n---------------------\n");
     int no = Prompt.inputInt("도서 코드를 입력해주세요 ");
     int index = indexOf(no);
 
