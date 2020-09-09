@@ -1,5 +1,6 @@
 package mini.project;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import mini.project.domain.Book;
@@ -17,8 +18,11 @@ public class App {
         "        6. 종료");
     System.out.println("==========================================");
 
+
     List<Book> bookList = new LinkedList<>();
-    BookHandler bookHandler = new BookHandler(bookList);
+    List<Book> availableBookList = new ArrayList<>();
+    List<Book> unavailableBookList = new ArrayList<>();
+    BookHandler bookHandler = new BookHandler(bookList, availableBookList, unavailableBookList);
 
 
     loop:
