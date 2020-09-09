@@ -1,4 +1,4 @@
-package mini.project;
+package mini.project.domain;
 
 import java.sql.Date;
 
@@ -35,6 +35,9 @@ public class Book {
   }
   public boolean isAvailable() {
     return available;
+  }
+  public Date getReceivingDate() {
+    return ReceivingDate;
   }
   public void setAvailable(boolean available) {
     this.available = available;

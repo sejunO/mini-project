@@ -1,7 +1,10 @@
 package mini.project;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import mini.project.domain.Book;
+import mini.project.handler.BookHandler;
+import mini.project.util.Prompt;
 
 public class App {
   public static void main(String[] args) {
@@ -14,22 +17,18 @@ public class App {
         "        6. 종료");
     System.out.println("==========================================");
 
-    List<Book> bookList = new ArrayList<>();
-    BookInfo init = new BookInfo(bookList);
-    init.init();
-    init.list();
-
-    BookHandler bookHandler = new BookHandler(init);
+    List<Book> bookList = new LinkedList<>();
+    BookHandler bookHandler = new BookHandler(bookList);
 
     loop:
       while (true) {
         String command = Prompt.inputString("번호를 선택해주세요 => ");
 
         switch (command) {
-          case "1": BookHandler.add(); break;
-          case "2": BookHandler.list(); break;
-          case "3": BookHandler.delete(); break;
-          case "4": BookHandler.update(); break;
+          case "1": bookHandler.add(); break;
+          case "2": bookHandler.list(); break;
+          case "3": bookHandler.delete(); break;
+          case "4": bookHandler.update(); break;
           //          case "5": BookHandler.detail(); break;
           case "6": 
             System.out.println("도서 관리 프로그램을 종료합니다.");
