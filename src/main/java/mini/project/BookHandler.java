@@ -5,22 +5,37 @@ public class BookHandler {
   BookInfo bookInfo;
 
   public BookHandler(BookInfo bookInfo) {
+    BookList bookList = new BookList();
     this.bookInfo = bookInfo;
   }
 
-  public void borrowBook() {
+  public void add() {
+    System.out.println("[도서 등록]");
+
+    Book book = new Book();
+    book.setNo(Prompt.inputInt("도서 코드를 입력해주세요 > "));
+    book.setTitle(Prompt.inputString("제목을 입력해주세요 > "));
+    book.setAuthor(Prompt.inputString("저자를 입력해주세요 > "));
+    book.setPublisher(Prompt.inputString("출판사를 입력해주세요 > "));
+    book.setReceivingDate(new java.sql.Date(System.currentTimeMillis()));
+
+    BookList.add(book);
+
   }
 
-  public void checkBook() {
-  }
+  public void list() {
+    System.out.println("[도서 목록]");
 
-  public static void add() {
-    System.out.println("추가한다.");
+    Book[] books = BookList.toArray();
 
-  }
-
-  public static void list() {
-    System.out.println("목록 보기 검색.");
+    for (Book book : books) {
+      System.out.printf("%d, %s, %s, %s, %s\n",
+          book.getNo(),
+          book.getTitle(),
+          book.getAuthor(),
+          book.getPublisher(),
+          book.getReceivingDate(Book));
+    }
   }
 
   public static void delete() {
