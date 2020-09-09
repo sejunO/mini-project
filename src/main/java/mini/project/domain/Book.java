@@ -9,6 +9,7 @@ public class Book {
   private String publisher; // 출판사
   private Date ReceivingDate; // 도서 입고일
   private boolean available; // 대여가능 여부
+  private int viewCount;
   public int getNo() {
     return no;
   }
@@ -48,6 +49,13 @@ public class Book {
   }
   public void setReceivingDate(Date ReceivingDate) {
     this.ReceivingDate = ReceivingDate;
+  }
+
+  public int getViewCount() {
+    return viewCount;
+  }
+  public void setViewCount(int viewCount) {
+    this.viewCount = viewCount;
   }
 
 
