@@ -36,7 +36,7 @@ public class BookHandler {
 
     bookList.add(book);
 
-    System.out.println("/n도서 등록을 완료하였습니다.");
+    System.out.println("도서 등록을 완료하였습니다.");
 
   }
 
@@ -167,7 +167,7 @@ public class BookHandler {
       while (true) {
         String command = Prompt.inputString("\n---------------------\n[ 도서 대여 및 반납 ]"
             + "\n---------------------\n" +
-            " 1.도서 대여 2.도서 반납 3.이전으로\n\n"+ 
+            " 1.도서 대여 \n 2.도서 반납 \n 3.이전으로\n\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": rental1(); break;
@@ -184,15 +184,17 @@ public class BookHandler {
 
   // 도서 대여
   public void rental1() {
-    String title = Prompt.inputString("대여할 도서 제목을 입력해주세요: ");
+    String title = Prompt.inputString("\n 대여할 도서 제목을 입력해주세요 > ");
     for(int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
         System.out.printf("[ "+title+" ]"+ " 도서는 현재 대여 가능합니다.");
         String response = Prompt.inputString(" 대여 하시겠습니까? (y/N) ");
         if (response.equalsIgnoreCase("y")) {
+          String name = Prompt.inputString("\n 대여자를 입력해주세요 > ");
+          System.out.println("\n대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다.\n");
+          System.out.println("[ "+name+"]님 "+"[ "+title+" ]"+" 도서를 대여하였습니다 !");
           borrowBook(book);
-          System.out.println("[ "+title+" ]"+" 도서를 대여하였습니다.");
         }
       } else {
         System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
