@@ -47,10 +47,10 @@ public class App {
           case "5": bookHandler.rental(); break;
           case "6": memberHandler.member(); break;
           case "7":
-            System.out.println("\n\t\t 도서 관리 프로그램을 종료합니다.");
+            System.out.println("\n\t\t * 도서 관리 프로그램을 종료합니다. *");
             break loop;
           default:
-            System.out.println("\n\t\t 실행할 수 없는 명령입니다.");
+            System.out.println("\n\t\t * 실행할 수 없는 명령입니다. *");
             Thread.sleep(700);
         }
         System.out.println(); 
