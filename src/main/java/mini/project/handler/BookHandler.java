@@ -55,31 +55,32 @@ public class BookHandler {
 
   public void update() {
     System.out.println("[도서 정보 변경]");
-    int no = Prompt.inputInt("번호? ");
-    Book board = findByNo(no);
+    int no = Prompt.inputInt("변경할 도서 코드를 입력해주세요 > ");
+    Book book = findByNo(no);
 
-    if (board == null) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
+    if (book == null) {
+      System.out.println("해당 코드의 도서가 없습니다.");
       return;
     }
 
     String title = Prompt.inputString(
-        String.format("제목(%s)? ", board.getTitle()));
-    String content = Prompt.inputString(
-        String.format("내용(%s)? ", board.getContent()));
-    String writer = Prompt.inputString(
-        String.format("작성자(%s)? ", board.getWriter()));
+        String.format("도서 제목(%s)? ", book.getTitle()));
+    String author = Prompt.inputString(
+        String.format("도서 저자(%s)? ", book.getAuthor()));
+    String publisher = Prompt.inputString(
+        String.format("도서 출판사(%s)? ", book.getPublisher()));
+
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
-      System.out.println("게시글 변경을 취소하였습니다.");
+      System.out.println("도서 정보 변경을 취소하였습니다.");
       return;
     }
 
-    board.setTitle(title);
-    board.setContent(content);
-    board.setWriter(writer);
-    System.out.println("게시글을 변경하였습니다.");
+    book.setTitle(title);
+    book.setAuthor(author);
+    book.setPublisher(publisher);
+    System.out.println("도서 변경을 완료하였습니다.");
   }
 
 
