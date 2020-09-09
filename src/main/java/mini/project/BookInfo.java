@@ -31,11 +31,17 @@ public class BookInfo {
     book3.setAvailable(true);
     bookList.add(book3);
 
-
-
-
   }
 
+  public Book findByTitle(String title) {
+    for (int i = 0; i < bookList.size(); i++) {
+      Book book = bookList.get(i);
+      if (book.getTitle() == title) {
+        return book;
+      }
+    }
+    return null;
+  }
 
 }
 
