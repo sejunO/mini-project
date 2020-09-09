@@ -193,7 +193,7 @@ public class BookHandler {
       while (true) {
         String command = Prompt.inputString("\n\n[ 도서 대여 및 반납 ]\n" +
             " 1.도서 대여 \n 2.도서 반납 \n 3.이전으로\n"+ 
-            "번호를 선택해주세요 => ");
+            "\n번호를 선택해주세요 => ");
         switch (command) {
           case "1": rental1(); Thread.sleep(700); break;
           case "2": returnBook(); Thread.sleep(700); break;
@@ -202,7 +202,7 @@ public class BookHandler {
             Thread.sleep(700);
             break loop;
           default:
-            System.out.println("* 실행할 수 없는 명령입니다. *");
+            System.out.println("\n* 실행할 수 없는 명령입니다. *");
             Thread.sleep(700);
         }
         System.out.println(); 
