@@ -19,9 +19,6 @@ public class App {
 
     LinkedList list = new LinkedList();
     ArrayList list2 = new ArrayList();
-    list.add(s1);
-    list2.add(s1);
-    list2.add(s1);
     list2.add(s2);
     list.add(s1);
     list.add(s2);
@@ -35,6 +32,7 @@ public class App {
 
     System.out.println(list.size());
     System.out.println("되나여?2222222");
+    System.out.println("되나여?333");
 
   }
 }
