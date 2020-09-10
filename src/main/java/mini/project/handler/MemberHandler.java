@@ -39,6 +39,7 @@ public class MemberHandler {
     System.out.println("\n\n[회원 상세정보]\n");
     System.out.println("* 회원 상세정보를 확인합니다 *");
     String findName = Prompt.inputString("\n확인할 회원의 이름을 입력해주세요 > ");
+    // 이미 등록된 회원인지 확인.
     Member member = findByName(findName);
 
     if (member == null) {
@@ -48,10 +49,9 @@ public class MemberHandler {
     }
     // 대여정보가 안나옴3 수정필요!
     System.out.printf("\n\n [ 회원 상세 정보 ] \n" 
-        + "이 름 : %s\n" + "연락처 : %s\n" + "대여정보 : \n  ",
+        + "이 름 : %s\n" + "연락처 : %s\n" + "대여정보 :   ",
         member.getName(), member.getTel());
     for (int i = 0; i < member.book.size(); i++) {
-      System.out.printf(member.book.get(i));
       System.out.printf(member.book.get(i) + ", ");
       Thread.sleep(500);
     }
@@ -101,7 +101,17 @@ public class MemberHandler {
     System.out.println("* 회원 등록을 합니다 *\n");
 
     Member member = new Member();
-    member.setName(Prompt.inputString("이름을 입력해주세요 > "));
+    // 이름 중복 검증
+    String name = Prompt.inputString("이름을 입력해주세요 > ");
+    for (int i = 0; i < memberList.size(); i++) {
+      Member newMember = memberList.get(i);
+      if (newMember.getName().equalsIgnoreCase(name)) {
+        System.out.println("이미 등록된 회원입니다.");
+        Thread.sleep(700);
+        return;
+      }
+    }
+    member.setName(name);
     member.setPassword(Prompt.inputString("암호를 입력해주세요 > "));
     member.setTel(Prompt.inputString("연락처를 입력해주세요 > "));
     memberList.add(member);

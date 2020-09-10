@@ -55,6 +55,7 @@ public class BookHandler {
     book.setReceivingDate(new Date(System.currentTimeMillis()));
     book.setViewCount(0);
 
+    availableBookList.add(book);
     bookList.add(book);
 
     System.out.println("\n* 도서 등록을 완료하였습니다. *");
@@ -110,16 +111,14 @@ public class BookHandler {
       Thread.sleep(500);
     }
   }
-  // 대여 가능 도서 목록
-  // 현재 함수를 부를 때 마다 추가됨.
-  // 수정 필요.
+
   public void availableList() throws InterruptedException {
-    for (int i = 0; i < bookList.size(); i++) {
-      Book book = bookList.get(i);
-      if (book.isAvailable()) {
-        availableBookList.add(book);
-      }
-    }
+    //    for (int i = 0; i < bookList.size(); i++) {
+    //      Book book = bookList.get(i);
+    //      if (book.isAvailable()) {
+    //        availableBookList.add(book);
+    //      }
+    //    }
     System.out.println("\n\n[대여 가능 목록]\n");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
@@ -237,6 +236,12 @@ public class BookHandler {
           // 도서 대여 가능여부 변경
           borrowBook(book);
           // 대여된 도서 목록에 저장
+          for(int index = 0; index < availableBookList.size(); index++) {
+            Book rentalbook = availableBookList.get(i);
+            if (rentalbook.getTitle().equalsIgnoreCase(title)) {
+              availableBookList.remove(i);
+            }
+          }
           unavailableBookList.add(book);
           Thread.sleep(500);
           return;
@@ -253,8 +258,6 @@ public class BookHandler {
 
   }
   // 도서 반납
-  //public void returnBook() throws InterruptedException {
-  // title = Prompt.inputString("반납할 도서 제목을 입력해주세요: ");
   // 현재 반납자가 아닌사람이 반납해도 반납이 허용됨.
   // 도서는 반납되지만 회원 정보에서 빌린 도서로 표시 됨.
 
