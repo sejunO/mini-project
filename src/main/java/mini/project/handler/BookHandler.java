@@ -58,7 +58,7 @@ public class BookHandler {
     bookList.add(book);
 
     System.out.println("\n* 도서 등록을 완료하였습니다. *");
-    Thread.sleep(500);
+    Thread.sleep(500); // 다른 메뉴로 넘어가기 전에 텀을 줌.
 
   }
 
@@ -94,6 +94,7 @@ public class BookHandler {
 
     while (iterator.hasNext()) {
       Book book = iterator.next();
+      System.out.println("총 보유 도서량: " + "[ "+ bookList.size() + " ]");
       System.out.printf("도서 코드 : %d\n"
           + "도서 제목 : %s\n"
           + "도서 저자 : %s\n"

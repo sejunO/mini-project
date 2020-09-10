@@ -30,7 +30,7 @@ public class App {
         String command = Prompt.inputString("\t\t\b [ 도서 관리 프로그램 ] \b\n" +
             "\t\t---------------------------"+
             "\n\t\t   1. 도서 등록  \n\n" + 
-            "\t\t   2. 도서 목록 및 검색 \n\n" + 
+            "\t\t   2. 도서 목록 \n\n" + 
             "\t\t   3. 도서 삭제\n\n" + 
             "\t\t   4. 도서 정보 변경\n\n" + 
             "\t\t   5. 도서 대여 및 반납\n\n" +
