@@ -55,10 +55,11 @@ public class BookHandler {
     book.setReceivingDate(new Date(System.currentTimeMillis()));
     book.setViewCount(0);
 
+    availableBookList.add(book);
     bookList.add(book);
 
     System.out.println("\n* 도서 등록을 완료하였습니다. *");
-    Thread.sleep(700);
+    Thread.sleep(400);
 
   }
 
@@ -71,16 +72,16 @@ public class BookHandler {
             "\n"+ 
             "번호를 선택하세요 => ");
         switch (command) {
-          case "1": list1(); Thread.sleep(700); break;
-          case "2": availableList(); Thread.sleep(700); break;
-          case "3": unavailableList(); Thread.sleep(700); break;
+          case "1": list1(); Thread.sleep(400); break;
+          case "2": availableList(); Thread.sleep(400); break;
+          case "3": unavailableList(); Thread.sleep(400); break;
           case "4": 
             System.out.println("\n* 이전으로 갑니다. *");
-            Thread.sleep(700);
+            Thread.sleep(400);
             break loop;
           default:
             System.out.println("\n* 실행할 수 없는 명령입니다. *");
-            Thread.sleep(700);
+            Thread.sleep(400);
         }
         System.out.println(); 
       }
@@ -106,25 +107,23 @@ public class BookHandler {
           book.getPublisher(),
           book.getReceivingDate(),
           book.getViewCount());
-      Thread.sleep(700);
+      Thread.sleep(400);
     }
   }
-  // 대여 가능 도서 목록
-  // 현재 함수를 부를 때 마다 추가됨.
-  // 수정 필요.
+
   public void availableList() throws InterruptedException {
-    for (int i = 0; i < bookList.size(); i++) {
-      Book book = bookList.get(i);
-      if (book.isAvailable()) {
-        availableBookList.add(book);
-      }
-    }
+    //    for (int i = 0; i < bookList.size(); i++) {
+    //      Book book = bookList.get(i);
+    //      if (book.isAvailable()) {
+    //        availableBookList.add(book);
+    //      }
+    //    }
     System.out.println("\n\n[대여 가능 목록]\n");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
       System.out.printf("[ "+ book.getTitle() +" ]" + " , ");
-      Thread.sleep(700);
+      Thread.sleep(400);
     }
     System.out.println(); 
   }
@@ -148,7 +147,7 @@ public class BookHandler {
     while (iterator.hasNext()) {
       Book book = iterator.next();
       System.out.printf(book.getTitle() + ", ");
-      Thread.sleep(700);
+      Thread.sleep(400);
     }
   }
 
@@ -160,7 +159,7 @@ public class BookHandler {
 
     if (book == null) {
       System.out.println("\n* 해당 코드의 도서가 없습니다. *");
-      Thread.sleep(700);
+      Thread.sleep(400);
       return;
     }
 
@@ -175,7 +174,7 @@ public class BookHandler {
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
       System.out.println("* 도서 정보 변경을 취소하였습니다.*");
-      Thread.sleep(700);
+      Thread.sleep(400);
       return;
     }
 
@@ -183,7 +182,7 @@ public class BookHandler {
     book.setAuthor(author);
     book.setPublisher(publisher);
     System.out.println("\n* 도서 변경을 완료하였습니다.*");
-    Thread.sleep(700);
+    Thread.sleep(400);
 
   }
 
@@ -195,15 +194,15 @@ public class BookHandler {
             " 1.도서 대여 \n 2.도서 반납 \n 3.이전으로\n"+ 
             "\n번호를 선택해주세요 => ");
         switch (command) {
-          case "1": rental1(); Thread.sleep(700); break;
-          case "2": returnBook(); Thread.sleep(700); break;
+          case "1": rental1(); Thread.sleep(400); break;
+          case "2": returnBook(); Thread.sleep(400); break;
           case "3": 
             System.out.println("\n* 이전으로 갑니다. *");
-            Thread.sleep(700);
+            Thread.sleep(400);
             break loop;
           default:
             System.out.println("\n* 실행할 수 없는 명령입니다. *");
-            Thread.sleep(700);
+            Thread.sleep(400);
         }
         System.out.println(); 
       }
@@ -224,7 +223,7 @@ public class BookHandler {
           String name = Prompt.inputString("\n 대여자를 입력해주세요 > ");
           if (memberHandler.findByName(name) == null) {
             System.out.println("\n* 등록된 회원이 아닙니다. *");
-            Thread.sleep(700);
+            Thread.sleep(400);
             return;
           }
           // 대여완료
@@ -236,24 +235,28 @@ public class BookHandler {
           // 도서 대여 가능여부 변경
           borrowBook(book);
           // 대여된 도서 목록에 저장
+          for(int index = 0; index < availableBookList.size(); index++) {
+            Book rentalbook = availableBookList.get(i);
+            if (rentalbook.getTitle().equalsIgnoreCase(title)) {
+              availableBookList.remove(i);
+            }
+          }
           unavailableBookList.add(book);
-          Thread.sleep(700);
+          Thread.sleep(400);
           return;
         }
         if (response.equalsIgnoreCase("n")) {
           System.out.println("\n* 도서 대여를 종료합니다. *");
-          Thread.sleep(700);
+          Thread.sleep(400);
           return;
         }
       }
     }
     System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
-    Thread.sleep(700);
+    Thread.sleep(400);
 
   }
   // 도서 반납
-  //public void returnBook() throws InterruptedException {
-  // title = Prompt.inputString("반납할 도서 제목을 입력해주세요: ");
   // 현재 반납자가 아닌사람이 반납해도 반납이 허용됨.
   // 도서는 반납되지만 회원 정보에서 빌린 도서로 표시 됨.
 
@@ -279,12 +282,12 @@ public class BookHandler {
         System.out.println("\n* [ "+title+" ]"+" 도서가 반납되었습니다. *");
         Thread.sleep(300);
         System.out.println("\n* 반납일자는 " + new Date(System.currentTimeMillis()) + " 입니다. *\n");
-        Thread.sleep(700);
+        Thread.sleep(400);
         return;
       }
     }
     System.out.println("\n* [ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여되지 않았습니다. *");
-    Thread.sleep(700);
+    Thread.sleep(400);
   }
 
   // 등록된 도서 삭제
@@ -296,20 +299,20 @@ public class BookHandler {
 
     if (index == -1) {
       System.out.println("* 해당 코드의 도서가 없습니다. *");
-      Thread.sleep(700);
+      Thread.sleep(400);
       return;
     }
 
     String response = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
       System.out.println("* 해당 도서의 삭제를 취소하였습니다. *");
-      Thread.sleep(700);
+      Thread.sleep(400);
       return;
     }
 
     bookList.remove(index);
     System.out.println("* 해당 도서를 삭제하였습니다. *");
-    Thread.sleep(700);
+    Thread.sleep(400);
 
   }
 
