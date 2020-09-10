@@ -12,6 +12,7 @@ public class MemberHandler {
     this.memberList = list;
   }
 
+  // 멤버 등록 및 관리에서 부메뉴로 이동하는 메서드
   public void member() throws InterruptedException {
     loop:
       while (true) {
@@ -35,6 +36,8 @@ public class MemberHandler {
       }
   }
 
+  // 회원 상세정보를 확인하는 메서드
+  // 해당 이름의 회원이 없을 경우 상세정보확인을 할 수 없다.
   private void memberDetail() throws InterruptedException {
     System.out.println("\n\n[회원 상세정보]\n");
     System.out.println("* 회원 상세정보를 확인합니다 *");
@@ -57,6 +60,9 @@ public class MemberHandler {
 
   }
 
+  // 회원 정보를 변경하는 메서드
+  // 회원 암호를 입력해야 변경할 수 있다.
+  // 비밀 번호가 다르면 회원 정보 변경을 할 수 없다.
   private void memberSet() throws InterruptedException {
     System.out.println("\n\n[회원 정보 변경]\n");
     System.out.println("* 회원 정보를 변경합니다 * ");
@@ -95,6 +101,8 @@ public class MemberHandler {
     Thread.sleep(500);
   }
 
+  // 회원을 등록하는 메서드
+  // 이미 등록된 회원은 등록할 수 없다.
   public void memberAdd() throws InterruptedException {
     System.out.println("\n\n[ 회원 등록 ]\n");
     System.out.println("* 회원 등록을 합니다 *\n");
