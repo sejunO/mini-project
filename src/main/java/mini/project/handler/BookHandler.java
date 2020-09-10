@@ -25,6 +25,7 @@ public class BookHandler {
   }
 
   //도서 등록하는 메소드
+  //도서 코드는 고유번호여야한다.
   public void add() throws InterruptedException {
     System.out.println("\n\n [도서 등록]");
     System.out.println("\n * 도서를 등록합니다.*\n");
