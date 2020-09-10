@@ -93,9 +93,11 @@ public class BookHandler {
 
     Iterator<Book> iterator = bookList.iterator();
 
+    System.out.println("현재 보유 도서량: " + "[ "+ bookList.size() + 
+        " ]\n-----------------------------");
+    Thread.sleep(300);
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.println("총 보유 도서량: " + "[ "+ bookList.size() + " ]");
       System.out.printf("도서 코드 : %d\n"
           + "도서 제목 : %s\n"
           + "도서 저자 : %s\n"
@@ -119,11 +121,13 @@ public class BookHandler {
     //        availableBookList.add(book);
     //      }
     //    }
-    System.out.println("\n\n[대여 가능 목록]\n");
+    System.out.println("\n\n[대여 가능 목록]");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.printf("[ "+ book.getTitle() +" ]" + " , ");
+      System.out.printf("코드 : " + book.getNo() + " / 제목 : " + book.getTitle() + 
+          " / 저자 : " + book.getAuthor() + " / 출판사 : " + book.getPublisher() + 
+          " / 입고일 : " + book.setReceivingDate() + "\n");
       Thread.sleep(500);
     }
     System.out.println(); 
@@ -147,7 +151,9 @@ public class BookHandler {
     Iterator<Book> iterator = unavailableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.printf(book.getTitle() + ", ");
+      System.out.printf("코드 : " + book.getNo() + " / 제목 : " + book.getTitle() + 
+          " / 저자 : " + book.getAuthor() + "/ 출판사 : " + book.getPublisher() + 
+          " / 입고일 : " + book.setReceivingDate() + "\n");
       Thread.sleep(500);
     }
   }

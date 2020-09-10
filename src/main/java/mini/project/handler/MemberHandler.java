@@ -49,10 +49,10 @@ public class MemberHandler {
     }
     // 대여정보가 안나옴3 수정필요!
     System.out.printf("\n\n [ 회원 상세 정보 ] \n" 
-        + "이 름 : %s\n" + "연락처 : %s\n" + "대여정보 :   ",
+        + " 이 름 : %s " + " / 연락처 : %s " + " / 대여정보 : ",
         member.getName(), member.getTel());
     for (int i = 0; i < member.book.size(); i++) {
-      System.out.printf(member.book.get(i) + ", ");
+      System.out.printf(member.book.get(i) + "\n");
       Thread.sleep(500);
     }
 
@@ -83,7 +83,7 @@ public class MemberHandler {
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
-      System.out.println("* 회원 변경을 취소하였습니다. *");
+      System.out.println("* 회원 정보 변경을 취소하였습니다. *");
       Thread.sleep(500);
       return;
     }
@@ -107,7 +107,7 @@ public class MemberHandler {
       Member newMember = memberList.get(i);
       if (newMember.getName().equalsIgnoreCase(name)) {
         System.out.println("이미 등록된 회원입니다.");
-        Thread.sleep(700);
+        Thread.sleep(500);
         return;
       }
     }
@@ -115,7 +115,7 @@ public class MemberHandler {
     member.setPassword(Prompt.inputString("암호를 입력해주세요 > "));
     member.setTel(Prompt.inputString("연락처를 입력해주세요 > "));
     memberList.add(member);
-    System.out.println("* [ "+ member.getName() +" ]" + "님 회원가입 감사합니다. *");
+    System.out.println("* [ "+ member.getName() +" ]" + "님의 회원가입이 완료되었습니다. *");
     Thread.sleep(500);
   }
 

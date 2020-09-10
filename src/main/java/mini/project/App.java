@@ -51,7 +51,7 @@ public class App {
             break loop;
           default:
             System.out.println("\n\t\t * 실행할 수 없는 명령입니다. *");
-            Thread.sleep(700);
+            Thread.sleep(500);
         }
         System.out.println(); 
       }
