@@ -24,7 +24,8 @@ public class BookHandler {
 
   }
 
-  //도서 등록
+  //도서 등록하는 메소드
+  //도서 코드는 고유번호여야한다.
   public void add() throws InterruptedException {
     System.out.println("\n\n [도서 등록]");
     System.out.println("\n * 도서를 등록합니다.*\n");
@@ -60,15 +61,15 @@ public class BookHandler {
     bookList.add(book);
 
     System.out.println("\n* 도서 등록을 완료하였습니다. *");
-    Thread.sleep(500);
+    Thread.sleep(500); // 다른 메뉴로 넘어가기 전에 텀을 줌.
 
   }
 
-  //도서 목록 선택
+  //도서 목록에서 부메뉴 선택하는 메소드
   public void list() throws InterruptedException {
     loop:
       while (true) {
-        String command = Prompt.inputString("\n\n[ 도서 목록 및 검색 ]\n" +
+        String command = Prompt.inputString("\n\n[ 도서 목록 ]\n" +
             " 1.전체 목록\n 2.대여 가능 목록\n 3.대여 도서 목록\n 4.이전으로\n" +
             "\n"+ 
             "번호를 선택하세요 => ");
@@ -88,12 +89,15 @@ public class BookHandler {
       }
   }
 
-  //전체목록
+  //전체목록출력하는메소드
   public void list1() throws InterruptedException {
     System.out.println("\n\n[도서 전체 목록]\n"); 
 
     Iterator<Book> iterator = bookList.iterator();
 
+    System.out.println("현재 보유 도서량: " + "[ "+ bookList.size() + 
+        " ]\n-----------------------------");
+    Thread.sleep(300);
     while (iterator.hasNext()) {
       Book book = iterator.next();
       System.out.printf("도서 코드 : %d\n"
@@ -112,13 +116,15 @@ public class BookHandler {
     }
   }
 
-  // 대여가능 도서 목록
+  // 대여 가능 목록을 출력하는 메소드
   public void availableList() throws InterruptedException {
-    System.out.println("\n\n[대여 가능 목록]\n");
+    System.out.println("\n\n[대여 가능 목록]");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.printf("[ "+ book.getTitle() +" ]" + " , ");
+      System.out.printf("코드 : " + book.getNo() + " / 제목 : " + book.getTitle() + 
+          " / 저자 : " + book.getAuthor() + " / 출판사 : " + book.getPublisher() + 
+          " / 입고일 : " + book.setReceivingDate() + "\n");
       Thread.sleep(500);
     }
     System.out.println(); 
@@ -126,19 +132,21 @@ public class BookHandler {
 
 
 
-  // 이미 대여된 도서 목록
+  // 이미 대여된 도서 목록을 출력하는 메서드
   public void unavailableList() throws InterruptedException {
 
     System.out.println("\n\n[대여된 도서 목록]");
     Iterator<Book> iterator = unavailableBookList.iterator();
     while (iterator.hasNext()) {
       Book book = iterator.next();
-      System.out.printf(book.getTitle() + ", ");
+      System.out.printf("코드 : " + book.getNo() + " / 제목 : " + book.getTitle() + 
+          " / 저자 : " + book.getAuthor() + "/ 출판사 : " + book.getPublisher() + 
+          " / 입고일 : " + book.setReceivingDate() + "\n");
       Thread.sleep(500);
     }
   }
 
-  //도서 정보 변경
+  //도서 정보를 변경하는 메서드
   public void update() throws InterruptedException {
     System.out.println("\n\n[도서 정보 변경]\n");
     int no = Prompt.inputInt("변경할 도서 코드를 입력해주세요 > ");
@@ -173,7 +181,7 @@ public class BookHandler {
 
   }
 
-  // 도서 대여/반납 선택
+  // 도서 대여/반납 선택하는 메서드
   public void rental() throws InterruptedException {
     loop:
       while (true) {
@@ -195,7 +203,7 @@ public class BookHandler {
       }
   }
 
-  // 도서 대여
+  // 도서 대여하는 메서드
   public void rental1() throws InterruptedException {
     String title = Prompt.inputString("\n 대여할 도서 제목을 입력해주세요 > ");
 
@@ -203,7 +211,7 @@ public class BookHandler {
       Book book = bookList.get(i);
 
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
-        System.out.printf("[ "+title+" ]"+ "* 도서는 현재 대여 가능합니다. *");
+        System.out.printf("[ "+title+" ]"+ " 도서는 현재 대여 가능합니다.");
         String response = Prompt.inputString(" 대여 하시겠습니까? (y/N) ");
         if (response.equalsIgnoreCase("y")) {
           // 대여자 검증
@@ -246,14 +254,12 @@ public class BookHandler {
         }
       }
     }
-    System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
+    System.out.printf(" 실행할 수 없는 명령입니다. ");
     Thread.sleep(500);
 
   }
-  // 도서 반납
-  // 현재 반납자가 아닌사람이 반납해도 반납이 허용됨.
-  // 도서는 반납되지만 회원 정보에서 빌린 도서로 표시 됨.
 
+  // 도서 반납하는 메서드
   public void returnBook() throws InterruptedException {
     String title = Prompt.inputString("반납할 도서 제목을 입력해주세요 > ");
     String name = Prompt.inputString("반납하시는 분 이름을 입력해주세요 > ");
@@ -293,8 +299,7 @@ public class BookHandler {
     Thread.sleep(500);
   }
 
-
-  // 등록된 도서 삭제
+  // 등록된 도서를 삭제하는 메서드
   public void delete() throws InterruptedException {
     System.out.println("\n\n [도서 삭제]");
     System.out.println("\n * 도서를 삭제합니다.*\n");

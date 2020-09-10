@@ -13,6 +13,7 @@ public class MemberHandler {
     this.memberList = list;
   }
 
+  // 멤버 등록 및 관리에서 부메뉴로 이동하는 메서드
   public void member() throws InterruptedException {
     loop:
       while (true) {
@@ -40,14 +41,13 @@ public class MemberHandler {
 
   //회원 전체목록
   public void memberList() throws InterruptedException {
-    System.out.println("\n\n[도서 전체 목록]\n"); 
+    System.out.println("\n\n[회원 전체 목록]\n"); 
 
     Iterator<Member> iterator = memberList.iterator();
 
     while (iterator.hasNext()) {
       Member member = iterator.next();
-      System.out.printf("이 름: %s"
-          + " 연락처 : %s" + " 대여정보 : ",
+      System.out.printf(" 이 름 : %s " + " / 연락처 : %s " + " / 대여정보 : ",
           member.getName(), member.getTel());
       for (int i = 0; i < member.book.size(); i++) {
         System.out.printf(member.book.get(i) + ", ");
@@ -57,7 +57,8 @@ public class MemberHandler {
     Thread.sleep(500);
   }
 
-  //회원 상세 정보
+  // 회원 상세정보를 확인하는 메서드
+  // 해당 이름의 회원이 없을 경우 상세정보확인을 할 수 없다.
   private void memberDetail() throws InterruptedException {
     System.out.println("\n\n[회원 상세정보]\n");
     System.out.println("* 회원 상세정보를 확인합니다 *");
@@ -70,17 +71,19 @@ public class MemberHandler {
       Thread.sleep(500);
       return;
     }
-
-    System.out.printf("\n\n [ 회원 상세 정보 ] \n" 
-        + "이 름 : %s\n" + "연락처 : %s\n" + "대여정보 : ",
+    System.out.printf("\n\n * [ " + member.getName() +" ] 회원님의 상세 정보입니다. * \n" 
+        + " 이 름 : %s " + " / 연락처 : %s " + " / 대여정보 : ",
         member.getName(), member.getTel());
     for (int i = 0; i < member.book.size(); i++) {
-      System.out.printf(member.book.get(i) + ", ");
-      Thread.sleep(500);
+      System.out.printf(member.book.get(i) + "\n");
     }
+    Thread.sleep(600);
 
   }
-  //회원 정보 변경
+
+  // 회원 정보를 변경하는 메서드
+  // 회원 암호를 입력해야 변경할 수 있다.
+  // 비밀 번호가 다르면 회원 정보 변경을 할 수 없다.
   private void memberSet() throws InterruptedException {
     System.out.println("\n\n[회원 정보 변경]\n");
     System.out.println("* 회원 정보를 변경합니다 * ");
@@ -107,7 +110,7 @@ public class MemberHandler {
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
-      System.out.println("* 회원 변경을 취소하였습니다. *");
+      System.out.println("* 회원 정보 변경을 취소하였습니다. *");
       Thread.sleep(500);
       return;
     }
@@ -120,6 +123,8 @@ public class MemberHandler {
     Thread.sleep(500);
   }
 
+  // 회원을 등록하는 메서드
+  // 이미 등록된 회원은 등록할 수 없다.
   public void memberAdd() throws InterruptedException {
     System.out.println("\n\n[ 회원 등록 ]\n");
     System.out.println("* 회원 등록을 합니다 *\n");
@@ -131,7 +136,7 @@ public class MemberHandler {
       Member newMember = memberList.get(i);
       if (newMember.getName().equalsIgnoreCase(name)) {
         System.out.println("이미 등록된 회원입니다.");
-        Thread.sleep(700);
+        Thread.sleep(500);
         return;
       }
     }
@@ -139,7 +144,7 @@ public class MemberHandler {
     member.setPassword(Prompt.inputString("암호를 입력해주세요 > "));
     member.setTel(Prompt.inputString("연락처를 입력해주세요 > "));
     memberList.add(member);
-    System.out.println("* [ "+ member.getName() +" ]" + "님 회원가입 감사합니다. *");
+    System.out.println("\n* [ "+ member.getName() +" ]" + "님의 회원가입이 완료되었습니다. *");
     Thread.sleep(500);
   }
 
