@@ -254,7 +254,7 @@ public class BookHandler {
         }
       }
     }
-    System.out.printf(" 실행할 수 없는 명령입니다. ");
+    System.out.printf("[ "+ title +" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다. ");
     Thread.sleep(500);
 
   }
