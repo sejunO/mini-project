@@ -47,14 +47,13 @@ public class MemberHandler {
       Thread.sleep(500);
       return;
     }
-    // 대여정보가 안나옴3 수정필요!
-    System.out.printf("\n\n [ 회원 상세 정보 ] \n" 
+    System.out.printf("\n\n * [ " + member.getName() +" ] 회원님의 상세 정보입니다. * \n" 
         + " 이 름 : %s " + " / 연락처 : %s " + " / 대여정보 : ",
         member.getName(), member.getTel());
     for (int i = 0; i < member.book.size(); i++) {
       System.out.printf(member.book.get(i) + "\n");
-      Thread.sleep(500);
     }
+    Thread.sleep(600);
 
   }
 
@@ -115,7 +114,7 @@ public class MemberHandler {
     member.setPassword(Prompt.inputString("암호를 입력해주세요 > "));
     member.setTel(Prompt.inputString("연락처를 입력해주세요 > "));
     memberList.add(member);
-    System.out.println("* [ "+ member.getName() +" ]" + "님의 회원가입이 완료되었습니다. *");
+    System.out.println("\n* [ "+ member.getName() +" ]" + "님의 회원가입이 완료되었습니다. *");
     Thread.sleep(500);
   }
 

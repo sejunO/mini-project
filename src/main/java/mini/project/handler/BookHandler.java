@@ -223,7 +223,7 @@ public class BookHandler {
       Book book = bookList.get(i);
 
       if (book.getTitle().equalsIgnoreCase(title) && book.isAvailable()) {
-        System.out.printf("[ "+title+" ]"+ "* 도서는 현재 대여 가능합니다. *");
+        System.out.printf("[ "+title+" ]"+ " 도서는 현재 대여 가능합니다.");
         String response = Prompt.inputString(" 대여 하시겠습니까? (y/N) ");
         if (response.equalsIgnoreCase("y")) {
           // 대여자 검증
@@ -259,7 +259,7 @@ public class BookHandler {
         }
       }
     }
-    System.out.printf("[ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여 불가능합니다.");
+    System.out.printf(" 실행할 수 없는 명령입니다. ");
     Thread.sleep(500);
 
   }
