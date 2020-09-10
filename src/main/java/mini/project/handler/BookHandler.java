@@ -34,6 +34,7 @@ public class BookHandler {
         int no = Prompt.inputInt(" 도서 코드를 입력해주세요 > ");
         int count = 0;
         boolean count2 = true;
+        // 도서 코드 중복 검증
         while(count2) {
           for (int i = 0; i < bookList.size(); i++) {
             if(bookList.get(i).getNo() == no) {
@@ -111,13 +112,8 @@ public class BookHandler {
     }
   }
 
+  // 대여가능 도서 목록
   public void availableList() throws InterruptedException {
-    //    for (int i = 0; i < bookList.size(); i++) {
-    //      Book book = bookList.get(i);
-    //      if (book.isAvailable()) {
-    //        availableBookList.add(book);
-    //      }
-    //    }
     System.out.println("\n\n[대여 가능 목록]\n");
     Iterator<Book> iterator = availableBookList.iterator();
     while (iterator.hasNext()) {
@@ -127,16 +123,7 @@ public class BookHandler {
     }
     System.out.println(); 
   }
-  //    StringBuilder books = new StringBuilder();
-  //    for (int i = 0; i < bookList.size(); i++) {
-  //      String availableBook = bookList.get(i).getTitle();
-  //
-  //      if (bookList.get(i).isAvailable()) {
-  //        books.append(availableBook + ", ");
-  //      }
-  //    }
-  //    System.out.printf("현재 %s 대여 가능합니다", books);
-  //  
+
 
 
   // 이미 대여된 도서 목록
@@ -221,24 +208,31 @@ public class BookHandler {
         if (response.equalsIgnoreCase("y")) {
           // 대여자 검증
           String name = Prompt.inputString("\n 대여자를 입력해주세요 > ");
-          if (memberHandler.findByName(name) == null) {
+          Member member = memberHandler.findByName(name);
+          if (member == null) {
             System.out.println("\n* 등록된 회원이 아닙니다. *");
             Thread.sleep(500);
             return;
           }
+          String pass = Prompt.inputString("암호를 입력해주세요 > ");
+          if (!member.getPassword().equalsIgnoreCase(pass)) {
+            System.out.println("\n* 비밀 번호가 다릅니다.*");
+            Thread.sleep(500);
+            return;
+          }
+
           // 대여완료
           System.out.println("* [ "+name+" ]님은 "+"[ "+title+" ]"+" 도서를 대여하셨습니다. *");
           System.out.println("\n* 대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다. *\n");
           // 대여자 정보에 대여도서 추가
-          Member member = memberHandler.findByName(name);
           member.book.add(title);
           // 도서 대여 가능여부 변경
           borrowBook(book);
           // 대여된 도서 목록에 저장
           for(int index = 0; index < availableBookList.size(); index++) {
-            Book rentalbook = availableBookList.get(i);
-            if (rentalbook.getTitle().equalsIgnoreCase(title)) {
-              availableBookList.remove(i);
+            Book rentalBook = availableBookList.get(index);
+            if (rentalBook.getTitle().equalsIgnoreCase(title)) {
+              availableBookList.remove(index);
             }
           }
           unavailableBookList.add(book);
@@ -283,12 +277,22 @@ public class BookHandler {
         Thread.sleep(300);
         System.out.println("\n* 반납일자는 " + new Date(System.currentTimeMillis()) + " 입니다. *\n");
         Thread.sleep(500);
+        returnBook(book);
+
+        for(int index = 0; index < unavailableBookList.size(); index++) {
+          Book returnBook = unavailableBookList.get(index);
+          if (returnBook.getTitle().equalsIgnoreCase(title)) {
+            unavailableBookList.remove(index);
+          }
+        }
+        availableBookList.add(book);
         return;
       }
     }
     System.out.println("\n* [ "+title+" ]"+" 도서는 존재하지 않거나 현재 대여되지 않았습니다. *");
     Thread.sleep(500);
   }
+
 
   // 등록된 도서 삭제
   public void delete() throws InterruptedException {
@@ -339,4 +343,9 @@ public class BookHandler {
   public void borrowBook(Book book) {
     book.setAvailable(false);
   }
+  private void returnBook(Book book) {
+    book.setAvailable(true);
+
+  }
+
 }

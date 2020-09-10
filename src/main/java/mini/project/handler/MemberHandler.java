@@ -1,6 +1,7 @@
 package mini.project.handler;
 
 import mini.project.domain.Member;
+import mini.project.util.Iterator;
 import mini.project.util.List;
 import mini.project.util.Prompt;
 
@@ -16,14 +17,15 @@ public class MemberHandler {
     loop:
       while (true) {
         String command = Prompt.inputString("\n\n[ 회원 등록 및 관리 ]\n"+
-            " 1.회원 등록\n 2.회원 정보 변경\n 3.회원 상세정보\n 4.이전으로\n" +
+            " 1.회원 등록\n 2.회원 정보 변경\n 3.회원 상세정보\n 4.회원 목록\n 5.이전으로" +
             "\n"+ 
             "번호를 선택해주세요 => ");
         switch (command) {
           case "1": memberAdd(); Thread.sleep(500); break;
           case "2": memberSet(); Thread.sleep(500); break;
           case "3": memberDetail(); Thread.sleep(500); break;
-          case "4":
+          case "4": memberList(); Thread.sleep(500); break;
+          case "5":
             System.out.println("\n* 이전으로 갑니다. *");
             Thread.sleep(500);
             break loop;
@@ -35,6 +37,27 @@ public class MemberHandler {
       }
   }
 
+
+  //회원 전체목록
+  public void memberList() throws InterruptedException {
+    System.out.println("\n\n[도서 전체 목록]\n"); 
+
+    Iterator<Member> iterator = memberList.iterator();
+
+    while (iterator.hasNext()) {
+      Member member = iterator.next();
+      System.out.printf("이 름: %s"
+          + " 연락처 : %s" + " 대여정보 : ",
+          member.getName(), member.getTel());
+      for (int i = 0; i < member.book.size(); i++) {
+        System.out.printf(member.book.get(i) + ", ");
+      }
+      System.out.println();
+    }
+    Thread.sleep(500);
+  }
+
+  //회원 상세 정보
   private void memberDetail() throws InterruptedException {
     System.out.println("\n\n[회원 상세정보]\n");
     System.out.println("* 회원 상세정보를 확인합니다 *");
@@ -47,9 +70,9 @@ public class MemberHandler {
       Thread.sleep(500);
       return;
     }
-    // 대여정보가 안나옴3 수정필요!
+
     System.out.printf("\n\n [ 회원 상세 정보 ] \n" 
-        + "이 름 : %s\n" + "연락처 : %s\n" + "대여정보 :   ",
+        + "이 름 : %s\n" + "연락처 : %s\n" + "대여정보 : ",
         member.getName(), member.getTel());
     for (int i = 0; i < member.book.size(); i++) {
       System.out.printf(member.book.get(i) + ", ");
@@ -57,10 +80,11 @@ public class MemberHandler {
     }
 
   }
-
+  //회원 정보 변경
   private void memberSet() throws InterruptedException {
     System.out.println("\n\n[회원 정보 변경]\n");
     System.out.println("* 회원 정보를 변경합니다 * ");
+
     String findName = Prompt.inputString("\n정보를 변경할 회원의 이름을 입력해주세요 > ");
     Member member = findByName(findName);
     if (member == null) {
