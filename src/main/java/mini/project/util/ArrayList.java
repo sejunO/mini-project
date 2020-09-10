@@ -108,14 +108,6 @@ public class ArrayList<E> extends AbstractList<E> {
     return arr; // 넉넉할 때는 파라미터로 받은 배열을 그대로 리턴. 
   }
 
-  @Override
-  public E clear(E e) {
-    for (int i = 0; i < size; i++)
-      elementData[i] = null;
-
-    size = 0;
-    return e; //전체삭제 제가 추가했어요
-  }
 }
 
 
