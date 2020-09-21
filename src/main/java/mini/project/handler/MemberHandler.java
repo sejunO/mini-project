@@ -1,8 +1,9 @@
+
 package mini.project.handler;
 
+import java.util.Iterator;
+import java.util.List;
 import mini.project.domain.Member;
-import mini.project.util.Iterator;
-import mini.project.util.List;
 import mini.project.util.Prompt;
 
 public class MemberHandler {
@@ -158,3 +159,4 @@ public class MemberHandler {
     return null;
   }
 }
+
