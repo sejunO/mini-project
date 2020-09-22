@@ -31,11 +31,20 @@ public class BookReturn {
       System.out.printf("[ " + title + " ]" + " 도서는 존재하지 않습니다. ");
       return;
     }
+    checkUnavailableBookList();
 
     String name = Prompt.inputString("반납하시는 분 이름을 입력해주세요 > ");
 
     Member member = memberHandler.findByName(name);
-    checkMember(member);
+    if (checkMember(member) == null) {
+      System.out.println("* 등록된 회원이 아닙니다. *");
+      return;
+    }
+
+    if (!member.book.contains(title)) {
+      System.out.println(name + " 님은 " + title + " 도서를 대여하지 않았습니다.");
+      return;
+    }
     if (member.book.contains(title)) {
       for (int i = 0; i < member.book.size(); i++) {
         if (member.book.get(i).equalsIgnoreCase(name)) {
@@ -54,9 +63,17 @@ public class BookReturn {
     retrunBook(book);
     RemoveUnavailableBookList(title);
 
-    System.out.println("\n* [ " + title + " ]" + " 도서는 존재하지 않거나 현재 대여되지 않았습니다. *");
     Thread.sleep(200);
   }
+
+  private void checkUnavailableBookList() {
+    for (int i = 0; i < unavailableBookList.size(); i++) {
+      Book book = unavailableBookList.get(i);
+
+    }
+  }
+
+
 
   // 리스트에 있는 도서 반환
   public Book checkBook(String title) {
@@ -70,17 +87,16 @@ public class BookReturn {
   }
 
   // 회원 검증
-  private void checkMember(Member member) throws InterruptedException {
+  private Member checkMember(Member member) throws InterruptedException {
     if (member == null) {
-      System.out.println("\n* 등록된 회원이 아닙니다. *");
-      Thread.sleep(200);
-      return;
+      return null;
     }
     if (!member.getPassword().equalsIgnoreCase(Prompt.inputString("암호를 입력해주세요 > "))) {
       System.out.println("\n* 비밀 번호가 다릅니다.*");
       Thread.sleep(200);
-      return;
+      return null;
     }
+    return member;
   }
 
   public void retrunBook(Book book) {

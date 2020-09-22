@@ -38,14 +38,16 @@ public class BookRental {
       if (response.equalsIgnoreCase("y")) {
         String name = Prompt.inputString("\n 이름를 입력해주세요 > ");
         Member member = memberHandler.findByName(name);
+        if (checkMember(member) == null) {
+          System.out.println("* 등록된 회원이 아닙니다. *");
+          return;
+        }
 
 
         // 대여완료
         System.out.println("* [ " + name + " ]님은 " + "[ " + title + " ]" + " 도서를 대여하셨습니다. *");
         System.out.println("\n* 대여일자는 " + new Date(System.currentTimeMillis()) + " 입니다. *\n");
 
-        // 대여자 검증
-        checkMember(member);
         // 대여자 정보에 대여도서 추가
         member.book.add(title);
         // 도서 대여 가능여부 변경, 대여된 도서 목록에 저장
@@ -84,18 +86,17 @@ public class BookRental {
 
 
   // 회원 검증
-  private void checkMember(Member member) throws InterruptedException {
+  private Member checkMember(Member member) throws InterruptedException {
     if (member == null) {
-      System.out.println("\n* 등록된 회원이 아닙니다. *");
-      Thread.sleep(200);
-      return;
+      return null;
     }
 
     if (!member.getPassword().equalsIgnoreCase(Prompt.inputString("암호를 입력해주세요 > "))) {
       System.out.println("\n* 비밀 번호가 다릅니다.*");
       Thread.sleep(200);
-      return;
+      return null;
     }
+    return member;
   }
 
   // 대여된 도서의 대여가능 여부를 변경하고 대여 불가 목록에 추가.

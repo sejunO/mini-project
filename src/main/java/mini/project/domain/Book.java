@@ -1,8 +1,9 @@
 package mini.project.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Book {
+public class Book implements Serializable {
   private int no; // 번호
   private String title; // 제목
   private String author; // 저자
