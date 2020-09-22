@@ -31,7 +31,6 @@ public class BookReturn {
       System.out.printf("[ " + title + " ]" + " 도서는 존재하지 않습니다. ");
       return;
     }
-    checkUnavailableBookList();
 
     String name = Prompt.inputString("반납하시는 분 이름을 입력해주세요 > ");
 
@@ -64,13 +63,6 @@ public class BookReturn {
     RemoveUnavailableBookList(title);
 
     Thread.sleep(200);
-  }
-
-  private void checkUnavailableBookList() {
-    for (int i = 0; i < unavailableBookList.size(); i++) {
-      Book book = unavailableBookList.get(i);
-
-    }
   }
 
 
