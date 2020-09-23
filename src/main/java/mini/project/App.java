@@ -1,14 +1,17 @@
 package mini.project;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import mini.project.domain.Book;
 import mini.project.domain.Member;
 import mini.project.handler.BookAddCommand;
@@ -24,18 +27,21 @@ import mini.project.util.Prompt;
 
 public class App {
   static File bookFile = new File("./bookFile.data");
-  static List<Book> bookList = new LinkedList<>();
+  static List<Book> bookList = new ArrayList<>();
   static List<Book> availableBookList = new ArrayList<>();
   static List<Book> unavailableBookList = new ArrayList<>();
 
+  static File memberFile = new File("./memberFile.data");
+  static List<Member> memberList = new ArrayList<>();
+
   public static void main(String[] args) throws InterruptedException {
-    loadBooks();
+    loadObjects(bookList, bookFile);
+    loadObjects(memberList, memberFile);
     setAvaAvailableBook();
     // loadAvailableBooks();
     // loadunavailableBooks();
 
     // Member
-    List<Member> memberList = new ArrayList<>();
     MemberHandler memberHandler = new MemberHandler(memberList);
 
     // Book
@@ -54,11 +60,32 @@ public class App {
 
     loop: while (true) {
       System.out.println();
-      System.out.println("\t\t---------------------------");
-      int input = Prompt.inputInt("\t\t\b [ 도서 관리 프로그램 ] \b\n" + "\t\t---------------------------"
-          + "\n\t\t   1. 도서 등록  \n\n" + "\t\t   2. 도서 목록 \n\n" + "\t\t   3. 도서 삭제\n\n"
-          + "\t\t   4. 도서 정보 변경\n\n" + "\t\t   5. 도서 대여 및 반납\n\n" + "\t\t   6. 회원 등록 및 관리\n\n"
-          + "\t\t   7. 종료\n" + "\t\t---------------------------\n" + "\t\t 번호를 선택하세요 => ");
+      String[] arr = new String[5];
+      arr[0] = "__        __   _";
+      arr[1] = "\\ \\      / /__| | ___ ___  _ __ ___   ___ ";
+      arr[2] = " \\ \\ /\\ / / _ \\ |/ __/ _ \\|  _   _ \\ / _ \\";
+      arr[3] = "  \\ V  V /  __/ | (_| (_) | | | | | |  __/";
+      arr[4] = "   \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|";
+      for (int i = 0; i < arr.length; i++) {
+        System.out.println(arr[i]);
+      }
+      String[] arr2 = new String[11];
+      arr2[0] = "\t\t---------------------------";
+      arr2[1] = "\t\t\b [ 도서 관리 프로그램 ] \b";
+      arr2[2] = "\t\t---------------------------";
+      arr2[3] = "\t\t   1. 도서 등록 ";
+      arr2[4] = "\t\t   2. 도서 목록 ";
+      arr2[5] = "\t\t   3. 도서 삭제";
+      arr2[6] = "\t\t   4. 도서 정보 변경 ";
+      arr2[7] = "\t\t   5. 도서 대여 및 반납 ";
+      arr2[8] = "\t\t   6. 회원 등록 및 관리 ";
+      arr2[9] = "\t\t   7. 종료 ";
+      arr2[10] = "\t\t--------------------------- ";
+      for (int i = 0; i < arr2.length; i++) {
+        System.out.println(arr2[i]);
+        System.out.println();
+      }
+      int input = Prompt.inputInt("\t\t 번호를 선택하세요 => ");
 
       switch (input) {
         case 6:
@@ -76,21 +103,22 @@ public class App {
     }
 
     Prompt.close();
-    saveBooks();
+    saveObjects(bookList, bookFile);
+    saveObjects(memberList, memberFile);
   }
 
   private static void setAvaAvailableBook() {
     for (int i = 0; i < bookList.size(); i++) {
       Book book = bookList.get(i);
-      if (!book.isAvailable()) {
-        book.setAvailable(true);
-      }
       if (book.isAvailable()) {
         availableBookList.add(book);
+      } else {
+        unavailableBookList.add(book);
       }
     }
 
   }
+  //
   // private static void loadAvailableBooks() {
   // for (int i = 0; i < bookList.size(); i++) {
   // Book book = bookList.get(i);
@@ -109,33 +137,34 @@ public class App {
   // }
   // }
 
-  private static void loadBooks() {
-    try (FileReader in = new FileReader(bookFile); Scanner sc = new Scanner(in);) {
+  @SuppressWarnings("unchecked")
+  private static <E> void loadObjects(Collection<E> list, File file) {
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+      int size = in.readInt();
 
-
-      while (true) {
-        try {
-          bookList.add(Book.valueOfCsv(sc.nextLine()));
-        } catch (Exception e) {
-          break;
-        }
+      for (int i = 0; i < size; i++) {
+        list.add((E) in.readObject());
       }
 
     } catch (Exception e) {
       System.out.println("도서 정보 로딩에 실패하였습니다.");
-    }
-  }
-
-  private static void saveBooks() {
-    try (FileWriter out = new FileWriter(bookFile)) {
-      for (Book book : bookList) {
-        out.write(book.toCsvString());
-      }
-    } catch (Exception e) {
-      System.out.println("도서 정보 저장 중에 오류 발생");
       e.printStackTrace();
     }
   }
+
+  private static <E extends Serializable> void saveObjects(Collection<E> list, File file) {
+    try (ObjectOutputStream out =
+        new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
+      out.writeInt(list.size());
+      for (E obj : list) {
+        out.writeObject(obj);
+      }
+    } catch (Exception e) {
+      System.out.println("정보 저장 중에 오류 발생");
+      e.printStackTrace();
+    }
+  }
+
 
 
 }

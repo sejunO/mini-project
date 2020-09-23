@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Book implements Serializable {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private int no; // 번호
   private String title; // 제목
   private String author; // 저자
@@ -61,10 +65,7 @@ public class Book implements Serializable {
     this.available = available;
   }
 
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%b\n", this.getNo(), this.getTitle(), this.getAuthor(),
-        this.getPublisher(), this.getReceivingDate(), this.isAvailable());
-  }
+
 
   @Override
   public String toString() {
@@ -72,19 +73,6 @@ public class Book implements Serializable {
         + ", ReceivingDate=" + ReceivingDate + ", available=" + available + "]";
   }
 
-  public static Book valueOfCsv(String nextLine) {
-    String[] data = nextLine.split(",");
-
-    Book book = new Book();
-    book.setNo(Integer.parseInt(data[0]));
-    book.setTitle(data[1]);
-    book.setAuthor(data[2]);
-    book.setPublisher(data[3]);
-    book.setReceivingDate(Date.valueOf(data[4]));
-    book.setAvailable(Boolean.parseBoolean(data[5]));
-
-    return book;
-  }
 
 
 }
